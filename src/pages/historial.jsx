@@ -6,9 +6,9 @@ function Historial() {
     const [facturas, setFacturas] = useState([]);
     const [ventas, setVentas] = useState([]);
     const navigate = useNavigate();
-    const [date,setDate] = useState(new Date().toISOString().substring(0,7));
+    const [date,setDate] = useState(new Date().toISOString().substring(0,10));
 
-    async function cargarHistorial() {
+    async function cargarHistorial(fechaReferencia) {
 
         const { data:dataFacturas, error:errorFacturas } = await supabase
         .from('facturas')
@@ -19,8 +19,8 @@ function Historial() {
         .select()
 
         if(!errorFacturas && !errorVentas){
-            setFacturas(dataFacturas.filter(f => f.created_at.substring(0,7) === date ));
-            setVentas(dataVentas.filter(f => f.created_at.substring(0,7) === date ));
+            setFacturas(dataFacturas.filter(f => f.created_at.substring(0,7) === fechaReferencia ));
+            setVentas(dataVentas.filter(f => f.created_at.substring(0,7) === fechaReferencia ));
         }
 
 
@@ -28,6 +28,18 @@ function Historial() {
         
     }
 
+    async function buscarFecha(e){
+
+        const fechaSeleccionada = e.target.value;
+
+        if(!(fechaSeleccionada === '')){
+            setDate(fechaSeleccionada);
+            if(fechaSeleccionada.substring(0,7) !== date.substring(0,7)){
+                cargarHistorial(fechaSeleccionada.substring(0,7));
+            }
+        }
+
+    }
 
     useEffect(() => {
         const comprobarSesion = async () => {
@@ -48,7 +60,7 @@ function Historial() {
                 }
             }
         };
-        cargarHistorial();
+        cargarHistorial(date.substring(0,7));
         comprobarSesion();
 
     }, []);
@@ -56,12 +68,12 @@ function Historial() {
     return (
         <div>
             <div>
-                <input type="date"/>
+                <input type="date" value={date} onChange={(e) => buscarFecha(e)}/>
             </div>
-            {facturas.map((fact) => (
+            {facturas.filter(f => f.created_at.substring(0,10) === date).map((fact) => (
                 <div>
                     <h1>Factura</h1>
-                    <p>Fecha:{fact.created_at}</p>
+                    <p>Fecha:{fact.created_at.substring(0,10)}</p>
 
                     {ventas.filter((v) => v.id_factura === fact.id).map((vent) => (
                         <div>
