@@ -95,7 +95,7 @@ export function Home(){
                     <div className="bg-zinc-900/30 rounded-2xl border-emerald-400/10 border-2 flex flex-col p-6 gap-8 items-center justify-center">
                         <span className="bg-emerald-800 rounded-2xl p-2 text-emerald-500 font-medium">ACCESO COMPLETO</span>
                         <div className="flex flex-row gap-2 p-4">
-                            <span className="font-black text-4xl">$15.000</span><span>ars/mes</span>
+                            <span className="font-black text-4xl">$20.000</span><span>ars/mes</span>
                         </div>
                         <ul className="space-y-3 text-sm text-zinc-400">
                             <li className="flex items-center gap-2">

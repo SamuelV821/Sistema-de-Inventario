@@ -26,10 +26,10 @@ function App() {
   
 
   return (
-    <div className="bg-zinc-950 text-slate-100 flex flex-col gap-8 p-6 min-h-screen">
+    <div className="bg-zinc-950 text-slate-100 min-h-screen">
      <BrowserRouter>
      {logeado && 
-     <nav>
+     <nav className="h-full">
       <Link to={'/home'}>Home</Link>
       <br/>
       <Link to={'/inventario'}>Inventario</Link>
@@ -41,20 +41,22 @@ function App() {
       <Link to={'/cerrarSesion'}>Cerrar Sesion</Link>
       <br/>
      </nav> }
-      <Routes>
-        <Route path="/" element ={<Home/>}/>
-        <Route path="/login" element ={<Login/>}/>
-        <Route path="/register" element ={<Register/>}/>
-        <Route path="/home" element ={<HomeLoged/>}/>
-        <Route path="/inventario" element ={<Inventario/>}/>
-        <Route path="/precios" element ={<Precios/>}/>
-        <Route path="/cerrarSesion" element ={<CerrarSesion/>}/>
-        <Route path="/unirseNegocio" element ={<UnirseNegocio/>}/>
-        <Route path="/crearNegocio" element ={<CrearNegocio/>}/>
-        <Route path="/afiliarse" element ={<Afiliarse/>}/>
-        <Route path="/historial" element ={<Historial/>}/>
+     <main className="flex-1 p-6">
+        <Routes>
+          <Route path="/" element ={<Home/>}/>
+          <Route path="/login" element ={<Login/>}/>
+          <Route path="/register" element ={<Register/>}/>
+          <Route path="/home" element ={<HomeLoged/>}/>
+          <Route path="/inventario" element ={<Inventario/>}/>
+          <Route path="/precios" element ={<Precios/>}/>
+          <Route path="/cerrarSesion" element ={<CerrarSesion/>}/>
+          <Route path="/unirseNegocio" element ={<UnirseNegocio/>}/>
+          <Route path="/crearNegocio" element ={<CrearNegocio/>}/>
+          <Route path="/afiliarse" element ={<Afiliarse/>}/>
+          <Route path="/historial" element ={<Historial/>}/>
 
-      </Routes>
+        </Routes>
+      </main>
      </BrowserRouter>
     </div>
   )
