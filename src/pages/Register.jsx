@@ -35,14 +35,14 @@ export function Register(){
       const { errorperfil } = await supabase
       .from('perfiles')
       .insert({ id_auth: data.user.id  })
-      console.log('Usuario creado');
+      //console.log('Usuario creado');
       navigate('/home')
       if(errorperfil){
-        console.log('Error al crear perfil: ',errorperfil);
+        //console.log('Error al crear perfil: ',errorperfil);
       }
     }
     else{
-      console.log('Error:',error)
+      //console.log('Error:',error)
 
     }
   }

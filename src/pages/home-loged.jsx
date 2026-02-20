@@ -80,7 +80,7 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     const totalVenta = listaDeVenta.reduce((acc, el) => acc + el.precio_final, 0);
 
     if(listaDeVenta.length === 0){
-        console.log('Agrega un producto')
+        //console.log('Agrega un producto')
         return;
     }
     
@@ -220,7 +220,7 @@ function HomeLoged(){
     // Si todavía no tenemos el ID del negocio, no nos suscribimos
     if (!idNegocioActual) return;
 
-    console.log("Iniciando suscripción para negocio:", idNegocioActual);
+    //console.log("Iniciando suscripción para negocio:", idNegocioActual);
 
     const canal = supabase
         .channel(`cambios-${idNegocioActual}`) // Nombre único por negocio
@@ -233,17 +233,17 @@ function HomeLoged(){
                 filter: `id_negocio=eq.${idNegocioActual}` // ¡Optimización! Solo escuchá lo tuyo
             },
             (payload) => {
-                console.log('¡Cambio detectado en productos!', payload);
+                //console.log('¡Cambio detectado en productos!', payload);
                 obtenerProductosNuevamente();
             }
         )
         .subscribe((status) => {
-            console.log("Estado real de suscripción:", status);
+            //console.log("Estado real de suscripción:", status);
         });
 
     return () => {
         if (canal) {
-            console.log("Cerrando canal de forma segura...");
+            //console.log("Cerrando canal de forma segura...");
             supabase.removeChannel(canal);
         }
     };

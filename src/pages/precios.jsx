@@ -13,12 +13,12 @@ function Precios(){
 
         if(!error){
             setProductos(data);
-            console.log('Lista de precios recibida')
+            //console.log('Lista de precios recibida')
             setProductos(data);
         }
 
         else{
-            console.log('Error:',error);
+            //console.log('Error:',error);
         }
     }
 

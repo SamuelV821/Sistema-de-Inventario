@@ -34,11 +34,11 @@ export function Login (){
         });
 
         if(!error){
-            console.log('Inicio de sesion Correcto');
+            //console.log('Inicio de sesion Correcto');
             navigate('/home');
         }
         else{
-            console.log('Error:',error);
+            //console.log('Error:',error);
         }
     }
 

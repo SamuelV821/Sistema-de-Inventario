@@ -32,8 +32,8 @@ export function Home(){
                 </div>
                 {/*Botones */}
                 <div className="flex flex-col md:flex-row p-4 gap-6 items-center justify-center">
-                    <button className=" hover:text-indigo-500 " onClick={() => navigate('/login')}>Ingresar</button>
-                    <button className="bg-indigo-500 shadow-md shadow-indigo-500/50 hover:shadow-indigo-500/90 hover:text-zinc-950 transition-all text-center rounded-2xl p-2 " onClick={() => navigate('/register')}>Registrarse</button>
+                    <button className=" hover:text-emerald-500 " onClick={() => navigate('/login')}>Ingresar</button>
+                    <button className="bg-indigo-500 shadow-md shadow-indigo-500/50 hover:shadow-indigo-500/90 hover:text-zinc-900 transition-all text-center rounded-2xl p-2 " onClick={() => navigate('/register')}>Registrarse</button>
                 </div>  
             </div>
 
@@ -49,7 +49,7 @@ export function Home(){
 
                 </div>
 
-                <div className="grid grid-cols-3 w-full p-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 w-full p-4 gap-8">
                     <div className="bg-zinc-400/10 min-h-30 col-span-1 rounded-2xl p-4 gap-8">
                         <span className="text-emerald-500 text-2xl">📦</span>
                         <h3 className="text-xl font-bold text-slate-100">Inventario</h3>
@@ -70,8 +70,10 @@ export function Home(){
 
                     
                 </div>
-                
-                <footer className="mt-auto w-full py-10 border-t border-white/5 bg-zinc-950/50 backdrop-blur-md">
+
+            </div>
+
+            <footer className="mt-auto w-full py-10 border-t border-white/5 bg-zinc-950/50 backdrop-blur-md">
                         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
                             
                             {/* Lado Izquierdo: Marca */}
@@ -90,8 +92,8 @@ export function Home(){
                             <div className="flex gap-8 text-sm font-medium text-zinc-400">
                                 <a href="#" className="hover:text-emerald-500 transition-colors">Términos</a>
                                 <a href="#" className="hover:text-emerald-500 transition-colors">Privacidad</a>
-                                <a href="#" className="hover:text-emerald-500 transition-colors">Soporte</a>
-                                <a href="#" className="hover:text-emerald-500 transition-colors">Instagram</a>
+                                <a href="mailto:contacto@samuel-v.dev" className="hover:text-emerald-500 transition-colors">Soporte</a>
+                                <a href="#" className="hover:text-emerald-500 transition-colors">WhatsApp</a>
                             </div>
 
                             {/* Copyright */}
@@ -100,11 +102,6 @@ export function Home(){
                             </div>
                         </div>
                     </footer>
-
-                
-
-
-            </div>
         </div>
         
     );

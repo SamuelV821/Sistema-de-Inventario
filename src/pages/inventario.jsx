@@ -21,7 +21,7 @@ function Agregar({actualizarLista}){
 
 
         if(!errorInsert){
-            console.log('Producto agregado')
+            //console.log('Producto agregado')
             actualizarLista();
             setProducto({...producto,
                 producto:'',
@@ -34,7 +34,7 @@ function Agregar({actualizarLista}){
         }
 
         else{
-            console.log(error)
+            //console.log(error)
         }
     }
 
@@ -117,7 +117,7 @@ function Lista({productos , setProductos}){
             })
         }
         else{
-            console.log(error);
+            //console.log(error);
         }
     }
 
@@ -186,7 +186,7 @@ export function Inventario(){
 
         if(!error){
             setProductos(data)
-            console.log('Lista cargada');
+            //console.log('Lista cargada');
         }
 
         else{
