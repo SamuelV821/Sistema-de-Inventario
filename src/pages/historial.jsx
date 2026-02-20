@@ -12,7 +12,7 @@ function Historial() {
 
         const { data:dataFacturas, error:errorFacturas } = await supabase
         .from('facturas')
-        .select()
+        .select().order('created_at', { ascending: false })
 
         const { data:dataVentas, error:errorVentas } = await supabase
         .from('ventas')

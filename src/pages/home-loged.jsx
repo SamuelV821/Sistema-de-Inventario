@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 function Vender({productos,setProductos,idNegocioActual,idUser}){
     const [productosEncontrados,setProductosEncontrados] = useState([]);
     const [listaDeVenta,setListaDeVenta] = useState([]);
+
     
     function buscar(e){
 
@@ -18,6 +19,12 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
 
     function agregarProducto(index){
         const p = productosEncontrados[index];
+
+        if (p.cantidad <= 0) {
+        alert("¡Sin stock! No podés vender lo que no tenés, Guerrero.");
+        return;
+        }
+
         if(!listaDeVenta.some(item => item.id === p.id)){
             setListaDeVenta([...listaDeVenta,
                 {id:p.id,
@@ -36,7 +43,22 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
 
     function editarCantidad(e,index){
         const cant = (parseFloat(e.target.value));
-        if(cant>0){
+        const productoOriginal = productos.find(p => p.id === listaDeVenta[index].id);
+        const stockDisponible = productoOriginal?.cantidad || 0;
+
+        if(!isNaN(cant)){
+
+            if(cant > stockDisponible){
+                alert('Stock insuficiente');
+                e.target.value = listaDeVenta[index].cantidad;
+                return;
+            }
+
+            else if(cant < 1){
+                e.target.value = listaDeVenta[index].cantidad;
+                return;
+            }
+
             setListaDeVenta(prev => prev.map((item,id)=>{
             if(id === index){
                 return{...item,
@@ -48,12 +70,20 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
             return(item);
             }));
         }
+        else{
+            e.target.value = listaDeVenta[index].cantidad;
+        }
         
     }
 
    const finalizarVenta = async () => {
     const totalVenta = listaDeVenta.reduce((acc, el) => acc + el.precio_final, 0);
 
+    if(listaDeVenta.length === 0){
+        console.log('Agrega un producto')
+        return;
+    }
+    
     // 1. Insertamos la cabecera de la factura
     const { data: venta, error: errorVenta } = await supabase
         .from('facturas')
@@ -98,6 +128,8 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
 
     
 };
+
+    
     
 
     
@@ -119,7 +151,9 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
                 {listaDeVenta.map((data,index)=>(
                     <div key={index}>
                     <span >Producto: {data.producto} Precio Unitario: {data.precio} Cantidad: </span>
-                    <input type="number" value={data.cantidad} onChange={(e)=> editarCantidad(e,index)}/>
+                    <input type="number" min={1} step={1} 
+                        onKeyDown={(e) => {if (e.key === '-' || e.key === '.') {
+                        e.preventDefault();} else if(e.key ==='Enter'){e.currentTarget.blur()}}} defaultValue={data.cantidad} onBlur={(e)=> editarCantidad(e,index)}/>
                     <span> Precio Final: {data.precio_final}</span>
                     <button onClick={() => borrarProducto(index)}>x</button>
                     </div>

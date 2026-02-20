@@ -20,13 +20,92 @@ export function Home(){
     
 
     return(
-        <>
-        <h1>Landing page</h1>
-        <br />
-        <button onClick={() => navigate('/login')}>Logearse</button>
-        <br />
-        <button onClick={() => navigate('/register')}>Registrarse</button>
-        </>
+        <div className="flex flex-col p-4 gap-8">
+            <div className='bg-zinc-900/30 rounded-2xl flex flex-row items-center justify-between p-4 gap-8'>
+                {/*Logo*/}
+                <div className='bg-zinc-950 rounded-2xl p-2'>
+                    <div className="flex items-center gap-1 tracking-tight">
+                        <span className="text-2xl font-black text-slate-100 italic">Click</span>
+                        <span className="text-2xl font-black text-emerald-500 italic">Venta</span>
+                        <div className="h-2 w-2 bg-emerald-500 boxsh rounded-full mt-3 shadow-[0_0_10px_#10b981] animate-pulse"></div>
+                    </div>
+                </div>
+                {/*Botones */}
+                <div className="flex flex-col md:flex-row p-4 gap-6 items-center justify-center">
+                    <button className=" hover:text-indigo-500 " onClick={() => navigate('/login')}>Ingresar</button>
+                    <button className="bg-indigo-500 shadow-md shadow-indigo-500/50 hover:shadow-indigo-500/90 hover:text-zinc-950 transition-all text-center rounded-2xl p-2 " onClick={() => navigate('/register')}>Registrarse</button>
+                </div>  
+            </div>
+
+            <div className="bg-zinc-900/30 rounded-2xl min-h-30 w-full p-4 gap-8 flex flex-col">
+                
+                <div className="flex flex-col w-full items-center justify-center p-4 gap-8">
+                    <div className="flex flex-row items-center justify-center gap-3 font-black text-5xl">
+                        <span>Gestioná tu stock con</span>
+                        <span className="text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]">un Click.</span>
+                    </div>
+                    <p className="text-slate-400 max-w-130 text-center ">El sistema mas rapido para
+                     tu negocio. Control total de inventario, ventas en tiempo real y reportes automaticos.</p>
+
+                </div>
+
+                <div className="grid grid-cols-3 w-full p-4 gap-8">
+                    <div className="bg-zinc-400/10 min-h-30 col-span-1 rounded-2xl p-4 gap-8">
+                        <span className="text-emerald-500 text-2xl">📦</span>
+                        <h3 className="text-xl font-bold text-slate-100">Inventario</h3>
+                        <p className="text-slate-400 text-sm">Control total de stock con alertas inteligentes.</p>
+                    </div>
+
+                    <div className="bg-zinc-400/10 min-h-30 col-span-1 rounded-2xl p-4 gap-8">
+                        <span className="text-emerald-500 text-2xl">💰</span>
+                        <h3 className="text-xl font-bold text-slate-100">Venta Rápida</h3>
+                        <p className="text-slate-400 text-sm">Facturación en segundos para que el cliente no espere.</p>
+                    </div>
+
+                    <div className="bg-zinc-400/10 min-h-30 col-span-1 rounded-2xl p-4 gap-8">
+                        <span className="text-emerald-500 text-2xl">📈</span>
+                        <h3 className="text-xl font-bold text-slate-100">Historial</h3>
+                        <p className="text-slate-400 text-sm">Reportes detallados de tus movimientos diarios.</p>
+                    </div>
+
+                    
+                </div>
+                
+                <footer className="mt-auto w-full py-10 border-t border-white/5 bg-zinc-950/50 backdrop-blur-md">
+                        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+                            
+                            {/* Lado Izquierdo: Marca */}
+                            <div className="flex flex-col gap-2">
+                                <div className="flex items-center gap-1 tracking-tight">
+                                    <span className="text-xl font-black text-slate-100 italic">Click</span>
+                                    <span className="text-xl font-black text-emerald-500 italic">Venta</span>
+                                    <div className="h-1.5 w-1.5 bg-emerald-500 rounded-full mt-2 shadow-[0_0_8px_#10b981]"></div>
+                                </div>
+                                <p className="text-zinc-500 text-sm">
+                                    Potenciando comercios en Tartagal y el mundo.
+                                </p>
+                            </div>
+
+                            {/* Lado Derecho: Links rápidos */}
+                            <div className="flex gap-8 text-sm font-medium text-zinc-400">
+                                <a href="#" className="hover:text-emerald-500 transition-colors">Términos</a>
+                                <a href="#" className="hover:text-emerald-500 transition-colors">Privacidad</a>
+                                <a href="#" className="hover:text-emerald-500 transition-colors">Soporte</a>
+                                <a href="#" className="hover:text-emerald-500 transition-colors">Instagram</a>
+                            </div>
+
+                            {/* Copyright */}
+                            <div className="text-zinc-600 text-xs">
+                                © 2026 ClickVenta. Todos los derechos reservados.
+                            </div>
+                        </div>
+                    </footer>
+
+                
+
+
+            </div>
+        </div>
         
     );
 

@@ -26,7 +26,7 @@ function App() {
   
 
   return (
-    <div className="bg-gray-200 flex flex-col gap-8 p-6 min-h-screen">
+    <div className="bg-zinc-950 text-slate-100 flex flex-col gap-8 p-6 min-h-screen">
      <BrowserRouter>
      {logeado && 
      <nav>
