@@ -9,21 +9,21 @@ function UnirseNegocio(){
 
 
     const unirseNegocio = async () => {
-        //console.log('id_auth:',id_auth)
+        console.log('id_auth:',id_auth)
         const { data, error:errorSelect } = await supabase
         .from('negocios')
         .select()
         .eq('codigo', codigo) // El estado que captura lo que escribís
 
         if(!errorSelect){
-            //console.log('se encontro el negocio',data[0].id)
+            console.log('se encontro el negocio',data[0].id)
             const { error:errorUpdate } = await supabase
             .from('perfiles')
             .update({ id_negocio: data[0].id })
             .eq('id_auth', id_auth)
 
             if(!errorUpdate){
-                //console.log('cambiado con exito');
+                console.log('cambiado con exito');
                 navigate('/home')
             }
         }

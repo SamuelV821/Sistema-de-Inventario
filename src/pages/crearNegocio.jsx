@@ -18,7 +18,7 @@ function CrearNegocio(){
 
     const nuevoNegocio = async () => {
 
-        //console.log("ID del usuario logueado:", id_auth); // <-- Ponlo AQUÍ
+        console.log("ID del usuario logueado:", id_auth); // <-- Ponlo AQUÍ
         if (!id_auth) {
         console.error("No hay ID de usuario. El RLS va a fallar.");
         return;
@@ -35,7 +35,7 @@ function CrearNegocio(){
             codigo = generarCodigoAleatorio();
             intentos++;
             if(!errorInsertar){
-                //console.log('Negocio creado');
+                console.log('Negocio creado');
                 const { error:errorUpdate } = await supabase
                 .from('perfiles')
                 .update({ id_negocio: data.id,dueno: true })
@@ -46,7 +46,7 @@ function CrearNegocio(){
                     navigate('/home')
                 }
                 else{
-                    //console.log('Fallo el update')
+                    console.log('Fallo el update')
                 }
 
                 }
@@ -54,7 +54,7 @@ function CrearNegocio(){
         }
 
         if(!exito){
-            //console.log('Error');
+            console.log('Error');
 
         }
         else{

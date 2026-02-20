@@ -38,7 +38,7 @@ export function Home(){
             </div>
 
             <div className="bg-zinc-900/30 rounded-2xl min-h-30 w-full p-4 gap-8 flex flex-col">
-                
+                {/*Titulo y subtitulo*/}
                 <div className="flex flex-col w-full items-center justify-center p-4 gap-8">
                     <div className="flex flex-row items-center justify-center gap-3 font-black text-5xl">
                         <span>Gestioná tu stock con</span>
@@ -48,9 +48,10 @@ export function Home(){
                      tu negocio. Control total de inventario, ventas en tiempo real y reportes automaticos.</p>
 
                 </div>
-
+                
+                {/*Caracteristicas*/}
                 <div className="grid grid-cols-1 md:grid-cols-3 w-full p-4 gap-8">
-                    <div className="bg-zinc-400/10 min-h-30 col-span-1 rounded-2xl p-4 gap-8">
+                    <div className="bg-zinc-400/10 min-h-30 col-span-1 rounded-2xl p-4 gap-8 animate">
                         <span className="text-emerald-500 text-2xl">📦</span>
                         <h3 className="text-xl font-bold text-slate-100">Inventario</h3>
                         <p className="text-slate-400 text-sm">Control total de stock con alertas inteligentes.</p>
@@ -69,6 +70,47 @@ export function Home(){
                     </div>
 
                     
+                </div>
+                {/*Precio*/}
+                <div className=" flex flex-col md:flex-row w-full items-center justify-center p-4 gap-6">
+
+                    <div className="p-4 gap-1 flex flex-col items-center md:border-r border-white/5">
+                        
+                        <div className="flex flex-col md:flex-row text-2xl font-black p-4 gap-2">
+
+                            <span>
+                                Un solo plan,
+                            </span>
+
+                            <span className="text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+                                todo el poder.
+                            </span>
+
+                        </div>
+
+                        <p className="text-slate-400 text-center">Sin letras chicas ni limites ocultos.</p>
+
+                    </div>
+                 
+                    <div className="bg-zinc-900/30 rounded-2xl border-emerald-400/10 border-2 flex flex-col p-6 gap-8 items-center justify-center">
+                        <span className="bg-emerald-800 rounded-2xl p-2 text-emerald-500 font-medium">ACCESO COMPLETO</span>
+                        <div className="flex flex-row gap-2 p-4">
+                            <span className="font-black text-4xl">$15.000</span><span>ars/mes</span>
+                        </div>
+                        <ul className="space-y-3 text-sm text-zinc-400">
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-500 font-bold">✓</span> Productos Ilimitados
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-500 font-bold">✓</span> Soporte por WhatsApp
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-500 font-bold">✓</span> Reportes de ventas diarios
+                            </li>
+                        </ul>
+                        <button onClick={() => navigate('/register')} className="bg-indigo-500 shadow-md shadow-indigo-500/50 hover:shadow-indigo-500/90 hover:text-zinc-900 transition-all text-center rounded-2xl p-2 ">¡Empezar Ahora!</button>
+                    </div>
+
                 </div>
 
             </div>
@@ -108,3 +150,4 @@ export function Home(){
 
     
 }
+
