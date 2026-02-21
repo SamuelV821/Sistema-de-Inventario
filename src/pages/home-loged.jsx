@@ -212,17 +212,14 @@ function HomeLoged(){
             
         }
 
-
         comprobarSesion();
 
+        // Si todavía no tenemos el ID del negocio, no nos suscribimos
+        if (!idNegocioActual) return;
 
+        //console.log("Iniciando suscripción para negocio:", idNegocioActual);
 
-    // Si todavía no tenemos el ID del negocio, no nos suscribimos
-    if (!idNegocioActual) return;
-
-    //console.log("Iniciando suscripción para negocio:", idNegocioActual);
-
-    const canal = supabase
+        const canal = supabase
         .channel(`cambios-${idNegocioActual}`) // Nombre único por negocio
         .on(
             'postgres_changes',
@@ -241,13 +238,13 @@ function HomeLoged(){
             //console.log("Estado real de suscripción:", status);
         });
 
-    return () => {
+        return () => {
         if (canal) {
             //console.log("Cerrando canal de forma segura...");
             supabase.removeChannel(canal);
-        }
-    };
-}, [idNegocioActual]);
+        }};
+        
+    }, [idNegocioActual]);
 
         // Función auxiliar para traer los productos
         const obtenerProductosNuevamente = async () => {

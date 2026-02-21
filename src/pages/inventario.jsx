@@ -61,13 +61,31 @@ function Agregar({actualizarLista}){
     
 
     return(
-        <div className="grid grid-cols-2 gap-10 p-10">
-            <input className="bg-slate-400 border-1 text-center" type="text" name="producto" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.producto} />
-            <input className="bg-slate-400 border-1 text-center" type="text" name="descripcion" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.descripcion} />
-            <input className="bg-slate-400 border-1 text-center" type="number" name="cantidad" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.cantidad} />
-            <input className="bg-slate-400 border-1 text-center" type="number" name="precio_costo" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.precio_costo} />
-            <input className="bg-slate-400 border-1 text-center" type="number" name="precio_venta" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.precio_venta} />
-            <button className="bg-amber-300 border-1 text-center" onClick={() => AgregarProductos()}>Agregar</button>
+        <div className="flex justify-center items-center sticky top-15">
+            <div className="bg-zinc-800/50 rounded-2xl flex flex-col w-fit gap-6 p-4 items-center justify-center">
+
+                <div className="flex flex-row justify-center items-center gap-3 italic font-black text-4xl"><span>Añadir</span><span className="text-emerald-500">Productos</span></div>
+
+                <div className="flex flex-col gap-6 p-4 items-center justify-center text-slate-200 text-xl">
+
+                    <div className="flex flex-col gap-6 p-4 justify-center items-center">
+                    <span>Nombre del producto:</span>
+                        <input className="bg-slate-900/50 border-1 text-center w-60" type="text" name="producto" placeholder="producto" onChange={(e) => manejarDatos(e)} value={producto.producto} />
+                        <span>Descripcion breve:</span>
+                        <input className="bg-slate-900/50 border-1 text-center w-60" type="text" name="descripcion" placeholder="descripcion" onChange={(e) => manejarDatos(e)} value={producto.descripcion} />
+                    </div>
+
+                    <div className="flex flex-col gap-6 p-4 justify-center items-center">
+                        <span>Cantidad en Stock:</span>
+                        <input className="bg-slate-900/50 border-1 text-center w-30" type="number" name="cantidad" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.cantidad} />
+                        <span>Precio de costo:</span>
+                        <input className="bg-slate-900/50 border-1 text-center w-30" type="number" name="precio_costo" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.precio_costo} />
+                        <span>Precio de venta:</span>
+                        <input className="bg-slate-900/50 border-1 text-center w-30" type="number" name="precio_venta" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.precio_venta} />
+                    </div>
+                </div>
+                <button className="w-60 text-2xl font-black text-indigo-900 mt-5 bg-indigo-500 shadow-md shadow-indigo-500/50 hover:shadow-indigo-500/90 hover:text-zinc-800 transition-all text-center rounded-2xl p-4 " onClick={() => AgregarProductos()}>Agregar</button>
+            </div>
         </div>
     )
 }
@@ -125,48 +143,50 @@ function Lista({productos , setProductos}){
     return(
         <>
         {productos?.map((data) => (
-            <div className="flex flex-col" key={data.id}>
-                <span>Producto: </span>
+            <div className="bg-zinc-800/50 rounded-2xl grid grid-cols-4 grid-rows-3 justify-center items-center p-8 gap-8" key={data.id}>
+
+                <div className="flex flex-row gap-3 text-2xl col-span-4 truncate"><span>Producto: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'producto') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'producto'})}} >{data.producto}</span>
-                }
+                }</div>
 
-                <span>Descripcion: </span>
+                <div className="flex flex-row gap-3 text-2xl col-span-4 truncate"><span>Descripcion: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'descripcion') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'descripcion'})}} >{data.descripcion}</span>
-                }
+                }</div>
 
-                <span>Stock: </span>
+                <div className="flex flex-row gap-3 text-2xl"><span>Stock: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'cantidad') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="cantidad" defaultValue={data.cantidad} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'cantidad'})}} >{data.cantidad}</span>
-                }
+                }</div>
 
-                <span>Precio Costo: </span>
+                <div className="flex flex-row gap-1 text-2xl"><span>Precio Costo: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_costo') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="precio_costo" defaultValue={data.precio_costo} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'precio_costo'})}} >{data.precio_costo}</span>
-                }
+                }</div>
 
-                <span>Precio Venta: </span>
+                <div className="flex flex-row gap-1 text-2xl"><span>Precio Venta: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_venta') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="precio_venta" defaultValue={data.precio_venta} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'precio_venta'})}} >{data.precio_venta}</span>
-                }
+                }</div>
+
+                <div className="flex justify-end"><button className="text-4xl" onClick={() => borrarProducto(data.id)}>⛔</button></div>
                 
-            <button onClick={() => borrarProducto(data.id)}>x</button>
             </div>
         ))}
         </>
@@ -222,10 +242,11 @@ export function Inventario(){
     },[])
     
     return (
-        <>
-        <Agregar actualizarLista={TraerProductos}/>
-        <Lista productos={productos} setProductos={setProductos}/>
+        <div className="w-full grid grid-cols-1 md:grid-cols-10 p-4 gap-6">
 
-        </>
+            <div className="md:col-start-8 md:col-end-11 md:row-start-1 md:row-end-2 p-6"><Agregar actualizarLista={TraerProductos}/></div>
+            <div className="md:col-start-1 md:col-end-8 md:row-start-1 md:row-end-2"><Lista productos={productos} setProductos={setProductos}/></div>
+
+        </div>
     )
 }

@@ -82,12 +82,6 @@ export function Register(){
 
         </div>
 
-
-      <div className='bg-gray-300 h-screen'>
-        <input className='bg-amber-200 m-5' type="mail" name='email' placeholder='' value={user.email} onChange={(e) => manejarDatos(e)} />
-          <input className='bg-amber-200 m-5' type="password" name='password' placeholder='' value={user.password} onChange={(e) => manejarDatos(e)}/>
-          <button onClick={RegistrarUsuario}>Enviar</button>
-      </div>
     </>
   )
 

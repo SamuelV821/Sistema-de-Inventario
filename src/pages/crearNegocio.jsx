@@ -80,8 +80,20 @@ function CrearNegocio(){
 
     return(
         <>
-        <input type="text" onChange={(e) => setNombre(e.target.value)} value={nombre} />
-        <button onClick={()=> nuevoNegocio()}>Crear</button>
+        <div className="h-screen w-full flex items-center justify-center">
+            <div className="bg-zinc-800/30 rounded-2xl flex flex-col p-6 gap-8 items-center justify-center">
+                <span className="bg-emerald-500/30 p-3 rounded-3xl text-5xl">🔑</span>
+                <div className="flex flex-row font-black gap-2 p-2 text-3xl italic"><span>Configura tu</span><span className="text-emerald-500">Negocio</span></div>
+                <p className="text-slate-300/40 text-sm font-light">Ponle un nombre a tu imperio comercial.</p>
+                <span className="font-black text-slate-300">NOMBRE DE TU NEGOCIO</span>
+                <input className="bg-zinc-950 rounded-2xl p-6 text-center font-black" placeholder="NEGOCIO" type="text" onChange={(e) => setNombre(e.target.value)} value={nombre}/>
+                <p className="w-80 bg-emerald-900/30 rounded-2xl p-5 text-emerald-200 text-xs ">Se generará automáticamente un código único para que tus empleados puedan unirse a este negocio.</p>
+                <button className="w-60 font-black text-zinc-950 mt-5 bg-emerald-500 shadow-md shadow-emerald-500/50 hover:shadow-indigo-500/90 hover:text-zinc-800 transition-all text-center rounded-2xl p-5 " onClick={()=>nuevoNegocio()}>Crear</button>
+                <button onClick={() => navigate('/afiliarse')}>Volver atras</button>
+
+            </div>
+
+        </div>
         </>
         
     )
