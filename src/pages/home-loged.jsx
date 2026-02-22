@@ -136,13 +136,13 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     
 
     return(
-        <div className="bg-zinc-800/50 flex flex-col rounded-2xl p-6 gap-10">
+        <div className="bg-zinc-800/50 flex flex-col rounded-2xl p-2 md:p-6 gap-8 md:gap-10">
             <div className="relative flex flex-col gap-4">
-                <div className="bg-zinc-950 rounded-2xl flex flex-row p-4 gap-4 justify-center items-center"><input type="text" className="bg-zinc-800/50 border-1 border-white/50 p-1 pl-4 pr-4" onChange={(e) => buscar(e)}></input><button className="bg-zinc-800/50 hover:bg-emerald-500/50 border-1 border-white/50 rounded-2xl p-1 pl-4 pr-4">Buscar</button></div>
+                <div className="bg-zinc-950 rounded-2xl flex flex-row p-4 gap-4 justify-center items-center"><input type="text" className="bg-zinc-800/50 border-1 border-white/50 w-full p-1 pl-4 pr-4" onChange={(e) => buscar(e)}></input><button className="bg-zinc-800/50 hover:bg-emerald-500/50 border-1 border-white/50 rounded-2xl p-1 pl-4 pr-4">Buscar</button></div>
                 {productosEncontrados.length > 0 && 
-                    <div className="bg-indigo-950/97 p-6 rounded-2xl absolute top-full mt-3 w-full flex flex-col gap-4 z-50">
+                    <div className="bg-indigo-950/97 p-6 rounded-2xl mx-h-80 max-h-130 md overflow-y-scroll overflow-x-hidden absolute top-full mt-3 w-full flex flex-col gap-4 z-50">
                         {productosEncontrados.map((data,index) => (
-                            <div className="bg-indigo-500/30 flex flex-row gap-6 p-4 justify-between items-center rounded-3xl" key={index}>
+                            <div className="bg-indigo-500/30 flex flex-col md:flex-row gap-6 p-4 justify-between items-center rounded-3xl" key={index}>
                                 <span>Producto: {data.producto}</span>
                                 <span>Precio: {data.precio_venta}</span>
                                 <span>Stock: {data.cantidad}</span>
@@ -153,9 +153,9 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
                 }
             </div>
             
-            <div className="bg-zinc-950 min-h-20 flex flex-col rounded-2xl p-6 gap-6">
+            <div className="bg-zinc-950 min-h-20 flex h-60 md:h-120 overflow-y-scroll overflow-x-hidden flex-col rounded-2xl p-6 gap-6">
                 {listaDeVenta.map((data,index)=>(
-                    <div className="flex flex-row p-6 gap-6 justify-between items-center bg-slate-500/50 rounded-2xl" key={index}>
+                    <div className="flex flex-col md:flex-row  p-1 md:p-6 gap-2 md:gap-6 justify-between items-center bg-slate-500/50 rounded-2xl" key={index}>
                     <span>Producto: {data.producto}</span>
                     <span>Precio Unitario: {data.precio}</span>
                     <div className="flex flex-row gap-2 items-center"><span>Cantidad: </span>
@@ -164,21 +164,21 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
                             e.preventDefault();} else if(e.key ==='Enter'){e.currentTarget.blur()}}} defaultValue={data.cantidad} onBlur={(e)=> editarCantidad(e,index)}/>
                             </div>
                         <span> Precio Final: {data.precio_final}</span>
-                        <button className="text-4xl" onClick={() => borrarProducto(index)}>⛔</button>
+                        <button className="text-3x1 md:text-4xl" onClick={() => borrarProducto(index)}>⛔</button>
                     </div>
                 ))}
             </div>
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="flex flex-row gap-2 items-center">
                     <label className="text-white text-sm">Método de Pago</label>
-                        <select className="bg-zinc-800 text-white p-3 rounded-xl border border-white/10 outline-none focus:ring-2 ring-indigo-500">
+                        <select className="bg-zinc-800 w-fit text-white p-1 md:p-3 rounded-xl border border-white/10 outline-none focus:ring-2 ring-indigo-500">
                             <option value="efectivo">Efectivo</option>
                             <option value="transferencia">Transferencia</option>
                             <option value="tarjeta">Tarjeta de Débito</option>
                             <option value="tarjeta">Tarjeta de Credito</option>
                         </select>
                 </div>
-                    <button className="bg-emerald-500/80 rounded-2xl p-4 text-2xl border-slate-300/50 border-1 text-zinc-900 hover:text-zinc-800/80 hover:bg-emerald-500/50" onClick={() => finalizarVenta()}>Finalizar Venta</button>
+                    <button className="bg-emerald-500/80 rounded-2xl p-2 md:p-4 text-1xl md:text-2xl border-slate-300/50 border-1 text-zinc-900 hover:text-zinc-800/80 hover:bg-emerald-500/50" onClick={() => finalizarVenta()}>Finalizar Venta</button>
             </div>
         </div>
     )
@@ -273,7 +273,7 @@ function HomeLoged(){
 
 
     return(
-        <div className="p-4">
+        <div className="p-1 md:p-4">
             <Vender productos={productos} setProductos={setProductos} idNegocioActual={idNegocioActual} idUser={idUser}/>
            
         </div>

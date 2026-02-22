@@ -143,9 +143,9 @@ function Lista({productos , setProductos}){
     return(
         <>
         {productos?.map((data) => (
-            <div className="bg-zinc-800/50 rounded-2xl grid grid-cols-4 grid-rows-3 justify-center items-center p-8 gap-8 m-8" key={data.id}>
+            <div className="bg-zinc-800/50 rounded-2xl flex flex-col md:grid md:grid-cols-4 md:grid-rows-3 justify-center items-center p-4 md:p-8 gap-4 md:gap-8 m-8" key={data.id}>
 
-                <div className="flex flex-row gap-3 text-xl col-span-4 truncate"><span>Producto: </span>
+                <div className="flex flex-row gap-3 md:text-xl md:col-span-4 truncate"><span>Producto: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'producto') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -153,7 +153,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'producto'})}} >{data.producto}</span>
                 }</div>
 
-                <div className="flex flex-row gap-3 text-xl col-span-4 truncate"><span>Descripcion: </span>
+                <div className="flex flex-row gap-3 md:text-xl md:col-span-4 truncate"><span>Descripcion: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'descripcion') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -161,7 +161,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'descripcion'})}} >{data.descripcion}</span>
                 }</div>
 
-                <div className="flex flex-row gap-3 text-xl"><span>Stock: </span>
+                <div className="flex flex-row gap-3 md:text-xl"><span>Stock: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'cantidad') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="cantidad" defaultValue={data.cantidad} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -169,7 +169,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'cantidad'})}} >{data.cantidad}</span>
                 }</div>
 
-                <div className="flex flex-row gap-1 text-xl"><span>Precio Costo: $</span>
+                <div className="flex flex-row gap-1 md:text-xl"><span>Precio Costo: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_costo') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="precio_costo" defaultValue={data.precio_costo} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -177,7 +177,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'precio_costo'})}} >{data.precio_costo}</span>
                 }</div>
 
-                <div className="flex flex-row gap-1 text-xl"><span>Precio Venta: $</span>
+                <div className="flex flex-row gap-1 md:text-xl"><span>Precio Venta: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_venta') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="precio_venta" defaultValue={data.precio_venta} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -185,7 +185,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'precio_venta'})}} >{data.precio_venta}</span>
                 }</div>
 
-                <div className="flex justify-end"><button className="text-4xl" onClick={() => borrarProducto(data.id)}>⛔</button></div>
+                <div className="flex justify-end"><button className="text-2xl md:text-4xl" onClick={() => borrarProducto(data.id)}>⛔</button></div>
                 
             </div>
         ))}
@@ -242,7 +242,7 @@ export function Inventario(){
     },[])
     
     return (
-        <div className="w-full grid grid-cols-1 md:grid-cols-10 p-1 gap-6">
+        <div className="w-full grid grid-cols-1 md:grid-cols-10 md:p-1 gap-6">
 
             <div className="md:col-start-8 md:col-end-11 md:row-start-1 md:row-end-2 p-0"><Agregar actualizarLista={TraerProductos}/></div>
             <div className="md:col-start-1 md:col-end-8 md:row-start-1 md:row-end-2"><Lista productos={productos} setProductos={setProductos}/></div>

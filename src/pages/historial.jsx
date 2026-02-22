@@ -71,26 +71,26 @@ function Historial() {
     return (
         <div className="flex flex-col items-center justify-center gap-10">
             <div className="bg-zinc-800/50 rounded-2xl p-4 flex flex-row gap-8 w-fit justify-center items-center">
-            <span className="font-black italic">Filtrar por fecha</span>
+            <span className="font-black italic hidden md:block">Filtrar por fecha</span>
                 <input className="bg-white/80 text-xl text-black p-2 rounded-2xl" type="date" value={date} onChange={(e) => buscarFecha(e)}/>
             </div>
             {facturas.filter(f => f.created_at.substring(0,10) === date).map((fact) => (
-                <div className="bg-zinc-800/50 rounded-2xl p-6 flex flex-col gap-8 justify-center w-full">
+                <div className="bg-zinc-800/50 rounded-2xl p-6 flex flex-col gap-4 justify-center w-full border-white/5 border-1">
                     <div className="bg-indigo-500/50 rounded-2xl p-4">
-                        <div className="flex flex-row justify-between items-center">
+                        <div className="flex flex-col md:flex-row justify-between items-center">
                             <h1>Venta registrada</h1>
                             <p>Fecha: {new Date(fact.created_at).toLocaleDateString('es-AR')}</p>
                         </div>
-                        <span>Id: {fact.id}</span>
+                        <span className="hidden md:block">Id: {fact.id}</span>
                     </div>
 
                     {ventas.filter((v) => v.id_factura === fact.id).map((vent) => (
-                        <div className="flex flex-row gap-6 p-6 justify-between items-center">
+                        <div className="flex flex-col md:flex-row gap-6 p-6 justify-between items-center border-white/10 border-1 rounded-2xl">
                             <span>Producto: {vent.producto}</span><span>Cantidad: {vent.cantidad}</span><span>Precio: $ {vent.precio}</span><span>Precio total: $ {vent.precio_final}</span>
                         </div>
                     ))}
 
-                    <div className="flex flex-row justify-between items-center"><span>Metodo de pago: {fact.metodo_pago}</span><span className="text-emerald-500 text-3xl font-black italic">Total: $ {fact.total}</span></div>
+                    <div className="flex flex-row justify-between items-center mt-10 border-white/10 border-t-2 p-4 "><span>Metodo de pago: {fact.metodo_pago}</span><span className="text-emerald-500 text-3xl font-black italic border-l-2 border-white/10 p-4">Total: $ {fact.total}</span></div>
 
                 </div>
             ))}

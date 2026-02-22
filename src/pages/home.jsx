@@ -21,7 +21,7 @@ export function Home(){
 
     return(
         <div className="flex flex-col p-4 gap-8">
-            <div className='bg-zinc-900/30 rounded-2xl flex flex-row items-center justify-between p-4 gap-8'>
+            <div className='bg-zinc-900/30 rounded-2xl flex flex-col md:flex-row items-center justify-between p-4 gap-8'>
                 {/*Logo*/}
                 <div className='bg-zinc-950 rounded-2xl p-2'>
                     <div className="flex items-center gap-1 tracking-tight">
@@ -31,7 +31,7 @@ export function Home(){
                     </div>
                 </div>
                 {/*Botones */}
-                <div className="flex flex-col md:flex-row p-4 gap-6 items-center justify-center">
+                <div className="flex flex-row p-4 gap-6 items-center justify-center">
                     <button className=" hover:text-emerald-500 " onClick={() => navigate('/login')}>Ingresar</button>
                     <button className="bg-indigo-500 shadow-md shadow-indigo-500/50 hover:shadow-indigo-500/90 hover:text-zinc-900 transition-all text-center rounded-2xl p-2 " onClick={() => navigate('/register')}>Registrarse</button>
                 </div>  
@@ -40,7 +40,7 @@ export function Home(){
             <div className="bg-zinc-900/30 rounded-2xl min-h-30 w-full p-4 gap-8 flex flex-col">
                 {/*Titulo y subtitulo*/}
                 <div className="flex flex-col w-full items-center justify-center p-4 gap-8">
-                    <div className="flex flex-row items-center justify-center gap-3 font-black text-5xl">
+                    <div className="flex flex-row items-center justify-center gap-3 font-black text-3xl md:text-5xl">
                         <span>Gestioná tu stock con</span>
                         <span className="text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.4)]">un Click.</span>
                     </div>
@@ -72,7 +72,7 @@ export function Home(){
                     
                 </div>
                 {/*Precio*/}
-                <div className=" flex flex-col md:flex-row w-full items-center justify-center p-4 gap-6">
+                <div className=" flex flex-col md:flex-row w-full items-center justify-center gap-2">
 
                     <div className="p-4 gap-1 flex flex-col items-center md:border-r border-white/5">
                         
@@ -92,7 +92,7 @@ export function Home(){
 
                     </div>
                  
-                    <div className="bg-zinc-900/30 rounded-2xl border-emerald-400/10 border-2 flex flex-col p-6 gap-8 items-center justify-center">
+                    <div className="bg-zinc-900/30 rounded-2xl border-emerald-400/10 border-2 flex flex-col p-4 gap-6 items-center justify-center">
                         <span className="bg-emerald-800 rounded-2xl p-2 text-emerald-500 font-medium">ACCESO COMPLETO</span>
                         <div className="flex flex-row gap-2 p-4">
                             <span className="font-black text-4xl">$25.000</span><span>ars/mes</span>

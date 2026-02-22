@@ -55,7 +55,7 @@ function App() {
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/historial'}>Historial</Link>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/cerrarSesion'}>Cerrar Sesion</Link>
      </nav> }
-     <main className="flex-1 p-6 md:col-span-8">
+     <main className="flex-1 p-3 :p-6 md:col-span-8">
         <Routes>
           <Route path="/" element ={<Home/>}/>
           <Route path="/login" element ={<Login/>}/>
