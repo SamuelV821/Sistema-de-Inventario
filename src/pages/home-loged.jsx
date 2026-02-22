@@ -136,31 +136,49 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     
 
     return(
-        <div className="bg-slate-400 min-h-60 flex flex-col rounded-2xl p-6 gap-6">
-            <div className="flex flex-row h-6"><input type="text" className="border-1" onChange={(e) => buscar(e)}></input><button className="border-1">Buscar</button></div>
-            {productosEncontrados.length > 0 && 
-            <div className="min-h-4 bg-amber-200">
-                {productosEncontrados.map((data,index) => (
-                    <div key={index}>
-                        <span>Producto: {data.producto} Precio: {data.precio_venta}</span>
-                        <button onClick={() => agregarProducto(index)}>Agregar</button>
+        <div className="bg-zinc-800/50 flex flex-col rounded-2xl p-6 gap-10">
+            <div className="relative flex flex-col gap-4">
+                <div className="bg-zinc-950 rounded-2xl flex flex-row p-4 gap-4 justify-center items-center"><input type="text" className="bg-zinc-800/50 border-1 border-white/50 p-1 pl-4 pr-4" onChange={(e) => buscar(e)}></input><button className="bg-zinc-800/50 hover:bg-emerald-500/50 border-1 border-white/50 rounded-2xl p-1 pl-4 pr-4">Buscar</button></div>
+                {productosEncontrados.length > 0 && 
+                    <div className="bg-indigo-950/97 p-6 rounded-2xl absolute top-full mt-3 w-full flex flex-col gap-4 z-50">
+                        {productosEncontrados.map((data,index) => (
+                            <div className="bg-indigo-500/30 flex flex-row gap-6 p-4 justify-between items-center rounded-3xl" key={index}>
+                                <span>Producto: {data.producto}</span>
+                                <span>Precio: {data.precio_venta}</span>
+                                <span>Stock: {data.cantidad}</span>
+                                <button className="bg-emerald-500 rounded-3xl p-2 text-zinc-900 hover:bg-emerald-500/70 hover:text-zinc-950/50" onClick={() => agregarProducto(index)}>Agregar</button>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>}
-            <div className="bg-white min-h-16 flex flex-col">
+                }
+            </div>
+            
+            <div className="bg-zinc-950 min-h-20 flex flex-col rounded-2xl p-6 gap-6">
                 {listaDeVenta.map((data,index)=>(
-                    <div key={index}>
-                    <span >Producto: {data.producto} Precio Unitario: {data.precio} Cantidad: </span>
-                    <input type="number" min={1} step={1} 
-                        onKeyDown={(e) => {if (e.key === '-' || e.key === '.') {
-                        e.preventDefault();} else if(e.key ==='Enter'){e.currentTarget.blur()}}} defaultValue={data.cantidad} onBlur={(e)=> editarCantidad(e,index)}/>
-                    <span> Precio Final: {data.precio_final}</span>
-                    <button onClick={() => borrarProducto(index)}>x</button>
+                    <div className="flex flex-row p-6 gap-6 justify-between items-center bg-slate-500/50 rounded-2xl" key={index}>
+                    <span>Producto: {data.producto}</span>
+                    <span>Precio Unitario: {data.precio}</span>
+                    <div className="flex flex-row gap-2 items-center"><span>Cantidad: </span>
+                        <input className="w-20 border-1 border-white/50 pl-2 pr-2 p-1" type="number" min={1} step={1} 
+                            onKeyDown={(e) => {if (e.key === '-' || e.key === '.') {
+                            e.preventDefault();} else if(e.key ==='Enter'){e.currentTarget.blur()}}} defaultValue={data.cantidad} onBlur={(e)=> editarCantidad(e,index)}/>
+                            </div>
+                        <span> Precio Final: {data.precio_final}</span>
+                        <button className="text-4xl" onClick={() => borrarProducto(index)}>⛔</button>
                     </div>
                 ))}
             </div>
-            <div>controles
-                <button onClick={() => finalizarVenta()}>Finalizar Venta</button>
+            <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row gap-2 items-center">
+                    <label className="text-white text-sm">Método de Pago</label>
+                        <select className="bg-zinc-800 text-white p-3 rounded-xl border border-white/10 outline-none focus:ring-2 ring-indigo-500">
+                            <option value="efectivo">Efectivo</option>
+                            <option value="transferencia">Transferencia</option>
+                            <option value="tarjeta">Tarjeta de Débito</option>
+                            <option value="tarjeta">Tarjeta de Credito</option>
+                        </select>
+                </div>
+                    <button className="bg-emerald-500/80 rounded-2xl p-4 text-2xl border-slate-300/50 border-1 text-zinc-900 hover:text-zinc-800/80 hover:bg-emerald-500/50" onClick={() => finalizarVenta()}>Finalizar Venta</button>
             </div>
         </div>
     )
@@ -255,7 +273,7 @@ function HomeLoged(){
 
 
     return(
-        <div>
+        <div className="p-4">
             <Vender productos={productos} setProductos={setProductos} idNegocioActual={idNegocioActual} idUser={idUser}/>
            
         </div>

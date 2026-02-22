@@ -6,7 +6,10 @@ function Historial() {
     const [facturas, setFacturas] = useState([]);
     const [ventas, setVentas] = useState([]);
     const navigate = useNavigate();
-    const [date,setDate] = useState(new Date().toISOString().substring(0,10));
+    const hoy = new Date();
+    const offset = hoy.getTimezoneOffset() * 60000; 
+    const fechaLocal = new Date(hoy - offset).toISOString().substring(0,10)
+    const [date,setDate] = useState(fechaLocal);
 
     async function cargarHistorial(fechaReferencia) {
 
@@ -66,23 +69,28 @@ function Historial() {
     }, []);
 
     return (
-        <div>
-            <div>
-                <input type="date" value={date} onChange={(e) => buscarFecha(e)}/>
+        <div className="flex flex-col items-center justify-center gap-10">
+            <div className="bg-zinc-800/50 rounded-2xl p-4 flex flex-row gap-8 w-fit justify-center items-center">
+            <span className="font-black italic">Filtrar por fecha</span>
+                <input className="bg-white/80 text-xl text-black p-2 rounded-2xl" type="date" value={date} onChange={(e) => buscarFecha(e)}/>
             </div>
             {facturas.filter(f => f.created_at.substring(0,10) === date).map((fact) => (
-                <div>
-                    <h1>Factura</h1>
-                    <p>Fecha:{fact.created_at.substring(0,10)}</p>
+                <div className="bg-zinc-800/50 rounded-2xl p-6 flex flex-col gap-8 justify-center w-full">
+                    <div className="bg-indigo-500/50 rounded-2xl p-4">
+                        <div className="flex flex-row justify-between items-center">
+                            <h1>Venta registrada</h1>
+                            <p>Fecha: {new Date(fact.created_at).toLocaleDateString('es-AR')}</p>
+                        </div>
+                        <span>Id: {fact.id}</span>
+                    </div>
 
                     {ventas.filter((v) => v.id_factura === fact.id).map((vent) => (
-                        <div>
-                            <span>Producto:{vent.producto}         Cantidad:{vent.cantidad}           Precio:{vent.precio}         Precio total:{vent.precio_final}</span>
-
+                        <div className="flex flex-row gap-6 p-6 justify-between items-center">
+                            <span>Producto: {vent.producto}</span><span>Cantidad: {vent.cantidad}</span><span>Precio: $ {vent.precio}</span><span>Precio total: $ {vent.precio_final}</span>
                         </div>
                     ))}
 
-                    <p>Total:{fact.total}                   Metodo de pago:{fact.metodo_pago}</p>
+                    <div className="flex flex-row justify-between items-center"><span>Metodo de pago: {fact.metodo_pago}</span><span className="text-emerald-500 text-3xl font-black italic">Total: $ {fact.total}</span></div>
 
                 </div>
             ))}

@@ -61,21 +61,21 @@ function Agregar({actualizarLista}){
     
 
     return(
-        <div className="flex justify-center items-center sticky top-15">
-            <div className="bg-zinc-800/50 rounded-2xl flex flex-col w-fit gap-6 p-4 items-center justify-center">
+        <div className="flex justify-center items-center sticky top-10">
+            <div className="bg-zinc-800/50 rounded-2xl flex flex-col w-fit gap-4 p-4 items-center justify-center">
 
                 <div className="flex flex-row justify-center items-center gap-3 italic font-black text-4xl"><span>Añadir</span><span className="text-emerald-500">Productos</span></div>
 
                 <div className="flex flex-col gap-6 p-4 items-center justify-center text-slate-200 text-xl">
 
-                    <div className="flex flex-col gap-6 p-4 justify-center items-center">
+                    <div className="flex flex-col gap-2 p-4 justify-center items-center">
                     <span>Nombre del producto:</span>
                         <input className="bg-slate-900/50 border-1 text-center w-60" type="text" name="producto" placeholder="producto" onChange={(e) => manejarDatos(e)} value={producto.producto} />
                         <span>Descripcion breve:</span>
                         <input className="bg-slate-900/50 border-1 text-center w-60" type="text" name="descripcion" placeholder="descripcion" onChange={(e) => manejarDatos(e)} value={producto.descripcion} />
                     </div>
 
-                    <div className="flex flex-col gap-6 p-4 justify-center items-center">
+                    <div className="flex flex-col gap-2 p-4 justify-center items-center">
                         <span>Cantidad en Stock:</span>
                         <input className="bg-slate-900/50 border-1 text-center w-30" type="number" name="cantidad" placeholder="" onChange={(e) => manejarDatos(e)} value={producto.cantidad} />
                         <span>Precio de costo:</span>
@@ -143,9 +143,9 @@ function Lista({productos , setProductos}){
     return(
         <>
         {productos?.map((data) => (
-            <div className="bg-zinc-800/50 rounded-2xl grid grid-cols-4 grid-rows-3 justify-center items-center p-8 gap-8" key={data.id}>
+            <div className="bg-zinc-800/50 rounded-2xl grid grid-cols-4 grid-rows-3 justify-center items-center p-8 gap-8 m-8" key={data.id}>
 
-                <div className="flex flex-row gap-3 text-2xl col-span-4 truncate"><span>Producto: </span>
+                <div className="flex flex-row gap-3 text-xl col-span-4 truncate"><span>Producto: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'producto') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -153,7 +153,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'producto'})}} >{data.producto}</span>
                 }</div>
 
-                <div className="flex flex-row gap-3 text-2xl col-span-4 truncate"><span>Descripcion: </span>
+                <div className="flex flex-row gap-3 text-xl col-span-4 truncate"><span>Descripcion: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'descripcion') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -161,7 +161,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'descripcion'})}} >{data.descripcion}</span>
                 }</div>
 
-                <div className="flex flex-row gap-3 text-2xl"><span>Stock: </span>
+                <div className="flex flex-row gap-3 text-xl"><span>Stock: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'cantidad') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="cantidad" defaultValue={data.cantidad} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -169,7 +169,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'cantidad'})}} >{data.cantidad}</span>
                 }</div>
 
-                <div className="flex flex-row gap-1 text-2xl"><span>Precio Costo: $</span>
+                <div className="flex flex-row gap-1 text-xl"><span>Precio Costo: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_costo') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="precio_costo" defaultValue={data.precio_costo} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -177,7 +177,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'precio_costo'})}} >{data.precio_costo}</span>
                 }</div>
 
-                <div className="flex flex-row gap-1 text-2xl"><span>Precio Venta: $</span>
+                <div className="flex flex-row gap-1 text-xl"><span>Precio Venta: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_venta') ? 
                 <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="number" autoFocus name="precio_venta" defaultValue={data.precio_venta} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -242,9 +242,9 @@ export function Inventario(){
     },[])
     
     return (
-        <div className="w-full grid grid-cols-1 md:grid-cols-10 p-4 gap-6">
+        <div className="w-full grid grid-cols-1 md:grid-cols-10 p-1 gap-6">
 
-            <div className="md:col-start-8 md:col-end-11 md:row-start-1 md:row-end-2 p-6"><Agregar actualizarLista={TraerProductos}/></div>
+            <div className="md:col-start-8 md:col-end-11 md:row-start-1 md:row-end-2 p-0"><Agregar actualizarLista={TraerProductos}/></div>
             <div className="md:col-start-1 md:col-end-8 md:row-start-1 md:row-end-2"><Lista productos={productos} setProductos={setProductos}/></div>
 
         </div>

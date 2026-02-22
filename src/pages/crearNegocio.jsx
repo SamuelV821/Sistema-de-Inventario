@@ -82,7 +82,7 @@ function CrearNegocio(){
         <>
         <div className="h-screen w-full flex items-center justify-center">
             <div className="bg-zinc-800/30 rounded-2xl flex flex-col p-6 gap-8 items-center justify-center">
-                <span className="bg-emerald-500/30 p-3 rounded-3xl text-5xl">🔑</span>
+                <span className="bg-emerald-500/30 p-3 rounded-3xl text-5xl">🏗️</span>
                 <div className="flex flex-row font-black gap-2 p-2 text-3xl italic"><span>Configura tu</span><span className="text-emerald-500">Negocio</span></div>
                 <p className="text-slate-300/40 text-sm font-light">Ponle un nombre a tu imperio comercial.</p>
                 <span className="font-black text-slate-300">NOMBRE DE TU NEGOCIO</span>

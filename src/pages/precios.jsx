@@ -51,15 +51,15 @@ function Precios(){
 
 
     return(
-        <>
+        <div className="grid grid-cols-3 md:grid-cols-6 p-8 gap-6">
         {productos?.map((data) => (
-            <div key={data.id}>
+            <div className="bg-slate-800/50 rounded-2xl p-6 font-black " key={data.id}>
             <span>{data.producto} ${data.precio_venta}</span>
             <br />
             </div>
         ))}
 
-        </>
+        </div>
     )
 }
 
