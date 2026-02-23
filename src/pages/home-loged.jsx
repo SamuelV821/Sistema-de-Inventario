@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 function Vender({productos,setProductos,idNegocioActual,idUser}){
     const [productosEncontrados,setProductosEncontrados] = useState([]);
     const [listaDeVenta,setListaDeVenta] = useState([]);
+    const [textoBusqueda, setTextoBusqueda] = useState('')
 
     
     function buscar(e){
-
+        setTextoBusqueda(e.target.value);
         setProductosEncontrados(productos.filter(p =>
             p.producto.toLowerCase().includes(e.target.value.toLowerCase()) && e.target.value !== ""
         ));
@@ -21,7 +22,7 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
         const p = productosEncontrados[index];
 
         if (p.cantidad <= 0) {
-        alert("¡Sin stock! No podés vender lo que no tenés, Guerrero.");
+        alert("¡Sin stock! No podés vender lo que no tenés.");
         return;
         }
 
@@ -33,7 +34,9 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
                 precio:p.precio_venta,
                 precio_final:p.precio_venta
 
-                } ]);
+            }]);
+            setTextoBusqueda('');
+            setProductosEncontrados([]);
         }
     }
 
@@ -138,7 +141,7 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     return(
         <div className="bg-zinc-800/50 flex flex-col rounded-2xl p-2 md:p-6 gap-8 md:gap-10">
             <div className="relative flex flex-col gap-4">
-                <div className="bg-zinc-950 rounded-2xl flex flex-row p-4 gap-4 justify-center items-center"><input type="text" className="bg-zinc-800/50 border-1 border-white/50 w-full p-1 pl-4 pr-4" onChange={(e) => buscar(e)}></input><button className="bg-zinc-800/50 hover:bg-emerald-500/50 border-1 border-white/50 rounded-2xl p-1 pl-4 pr-4">Buscar</button></div>
+                <div className="bg-zinc-950 rounded-2xl flex flex-row p-4 gap-4 justify-center items-center"><input type="text" className="bg-zinc-800/50 border-1 border-white/50 w-full p-1 pl-4 pr-4" onChange={(e) => buscar(e)} value={textoBusqueda}></input><button className="bg-zinc-800/50 hover:bg-emerald-500/50 border-1 border-white/50 rounded-2xl p-1 pl-4 pr-4">Buscar</button></div>
                 {productosEncontrados.length > 0 && 
                     <div className="bg-indigo-950/97 p-6 rounded-2xl mx-h-80 max-h-130 md overflow-y-scroll overflow-x-hidden absolute top-full mt-3 w-full flex flex-col gap-4 z-50">
                         {productosEncontrados.map((data,index) => (
