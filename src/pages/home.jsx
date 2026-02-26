@@ -4,7 +4,7 @@ import { supabase } from "../supabaseClient";
 
 export function Home(){
     const navigate = useNavigate();
-    const whatsappUrl = `wa.link/pqd8r0`;
+    const whatsappUrl = `https://wa.link/pqd8r0`;
 
     useEffect(() => {
         const comprobarSesion = async () => {
