@@ -23,6 +23,8 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
 
         if (p.cantidad <= 0) {
         alert("¡Sin stock! No podés vender lo que no tenés.");
+        setTextoBusqueda('');
+        setProductosEncontrados([]);
         return;
         }
 

@@ -24,6 +24,7 @@ export function NavbarMovil() {
         <Link to="/inventario" onClick={() => setAbierto(false)} className="text-2xl font-black text-slate-100">Inventario</Link>
         <Link to="/precios" onClick={() => setAbierto(false)} className="text-2xl font-black text-slate-100">Precios</Link>
         <Link to="/historial" onClick={() => setAbierto(false)} className="text-2xl font-black text-slate-100">Historial</Link>
+        <Link to="/configuracion" onClick={() => setAbierto(false)} className="text-2xl font-black text-slate-100">Configuracion</Link>
         <Link to="/cerrarSesion" onClick={() => setAbierto(false)} className="text-red-500 font-bold">Cerrar Sesión</Link>
       </div>
     </div>
