@@ -15,6 +15,8 @@ import { useEffect, useState } from "react"
 import { supabase } from "./supabaseClient"
 import Pagos from "./pages/pagos"
 import Configuracion from "./pages/configuracion"
+import { NavbarMovilEmpleado } from "./pages/menuDesplegableEmpleado"
+import { Legal } from "./pages/Legal"
 
 function NavBar({logeado,dueno}){
 
@@ -53,10 +55,9 @@ function NavBar({logeado,dueno}){
           </div>
       </div>
       <br />
-      <NavbarMovil/>
+      <NavbarMovilEmpleado/>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/home'}>Home</Link>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/precios'}>Precios</Link>
-      <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/configuracion'}>Configuracion</Link>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/cerrarSesion'}>Cerrar Sesion</Link>
      </nav> )}
      </>
@@ -130,6 +131,8 @@ function App() {
           <Route path="/historial" element ={<Historial/>}/>
           <Route path="/pagos" element ={<Pagos/>}/>
           <Route path="/configuracion" element ={<Configuracion/>}/>
+          <Route path="/terminos" element ={<Legal/>}/>
+          <Route path="/privacidad" element ={<Legal/>}/>
         </Routes>
       </main>
      </BrowserRouter>

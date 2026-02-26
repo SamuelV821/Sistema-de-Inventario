@@ -4,6 +4,8 @@ import { supabase } from "../supabaseClient";
 
 export function Home(){
     const navigate = useNavigate();
+    const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hola!%20Vengo%20desde%20ClickVenta%20y%20necesito%20soporte.`;
 
     useEffect(() => {
         const comprobarSesion = async () => {
@@ -132,10 +134,10 @@ export function Home(){
 
                             {/* Lado Derecho: Links rápidos */}
                             <div className="flex gap-8 text-sm font-medium text-zinc-400">
-                                <a href="#" className="hover:text-emerald-500 transition-colors">Términos</a>
-                                <a href="#" className="hover:text-emerald-500 transition-colors">Privacidad</a>
+                                <a href="/terminos" className="hover:text-emerald-500 transition-colors">Términos</a>
+                                <a href="privacidad" className="hover:text-emerald-500 transition-colors">Privacidad</a>
                                 <a href="mailto:contacto@samuel-v.dev" className="hover:text-emerald-500 transition-colors">Soporte</a>
-                                <a href="#" className="hover:text-emerald-500 transition-colors">WhatsApp</a>
+                                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-emerald-500 transition-colors">WhatsApp</a>
                             </div>
 
                             {/* Copyright */}
