@@ -68,29 +68,45 @@ function App() {
   const [logeado,setLogueado] = useState(false);
   const [dueno,setDueno] = useState(false);
   
-  useEffect(()=>{
-        const comprobarSesion = async () => {
-            const { data: {session}, error } = await supabase.auth.getSession();
-            if (session){
-                const { data:perfil, error:errorPerfil } = await supabase
-                .from('perfiles')
-                .select().eq('id_auth',session.user.id).single();
-                if(!errorPerfil){
-                    setDueno(perfil.dueno)
-                }
-            }
-        }
-
-        comprobarSesion();
-    },[])
-
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setLogueado(!!session);
-    });
-    return () => authListener.subscription.unsubscribe();
+    // Definimos la función para buscar el perfil
+    const obtenerDatosPerfil = async (userId) => {
+        const { data: perfil, error } = await supabase
+            .from('perfiles')
+            .select('dueno')
+            .eq('id_auth', userId)
+            .single();
 
-  }, []);
+        if (!error && perfil) {
+            setDueno(perfil.dueno);
+        }
+    };
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+        const estaLogueado = !!session;
+        setLogueado(estaLogueado);
+
+        if (estaLogueado) {
+            // Si se acaba de loguear o ya estaba logueado, buscamos el perfil
+            await obtenerDatosPerfil(session.user.id);
+        } else {
+            // Si cerró sesión, reseteamos el estado de dueño
+            setDueno(false);
+        }
+    });
+
+    // También verificamos la sesión inicial por si acaso
+    const chequearInicial = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+            setLogueado(true);
+            await obtenerDatosPerfil(session.user.id);
+        }
+    };
+    chequearInicial();
+
+    return () => authListener.subscription.unsubscribe();
+}, []);
   
 
   return (
