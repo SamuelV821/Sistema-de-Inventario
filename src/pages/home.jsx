@@ -4,8 +4,7 @@ import { supabase } from "../supabaseClient";
 
 export function Home(){
     const navigate = useNavigate();
-    const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=Hola!%20Vengo%20desde%20ClickVenta%20y%20necesito%20soporte.`;
+    const whatsappUrl = `wa.link/pqd8r0`;
 
     useEffect(() => {
         const comprobarSesion = async () => {
