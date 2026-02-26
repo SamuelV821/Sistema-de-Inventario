@@ -40,6 +40,7 @@ export function Login (){
             navigate('/home');
         }
         else{
+            alert('E-mail o Contraseña Incorrecta');
             console.log('Error:',error);
         }
     }

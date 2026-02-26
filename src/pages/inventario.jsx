@@ -14,6 +14,11 @@ function Agregar({actualizarLista}){
 
     const AgregarProductos = async () => {
 
+        if(producto.producto === ''){
+            alert('No puedes agregar un producto vacio');
+            return;
+        }
+
         const { error:errorInsert } = await supabase
         .from('productos')
         .insert([producto])
@@ -47,6 +52,8 @@ function Agregar({actualizarLista}){
         const valorFinal = (e.target.type=='number' ? (parseFloat(value)||0) :value)
         setProducto({...producto, [name]:valorFinal});
     }
+    
+    
 
     useEffect(() => {
 
@@ -232,6 +239,31 @@ export function Inventario(){
             //console.log('Error:',error);
         }
     }
+
+    useEffect(()=>{
+        const comprobarSesion = async () => {
+            const { data: {session}, error } = await supabase.auth.getSession();
+            if (session){
+                const { data:perfil, error:errorPerfil } = await supabase
+                .from('perfiles')
+                .select().eq('id_auth',session.user.id).single();
+                if(!errorPerfil){
+                    const { data:negocio, error:errornegocio } = await supabase
+                    .from('negocios')
+                    .select().eq('id',perfil.id_negocio).single();
+
+                    if(!negocio.pagado){
+                        navigate('/pagos')
+                    }
+                }
+            }
+            else{
+                alert('Error: ',error)
+            }
+        }
+
+        comprobarSesion();
+    },[])
 
     useEffect(() => {
 

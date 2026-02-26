@@ -17,6 +17,10 @@ function CrearNegocio(){
     };
 
     const nuevoNegocio = async () => {
+        if(nombre === ''){
+            alert('Debes ingresar un nombre');
+            return;
+        }
 
         console.log("ID del usuario logueado:", id_auth); // <-- Ponlo AQUÍ
         if (!id_auth) {

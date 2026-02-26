@@ -44,6 +44,31 @@ function Historial() {
 
     }
 
+    useEffect(()=>{
+        const comprobarSesion = async () => {
+            const { data: {session}, error } = await supabase.auth.getSession();
+            if (session){
+                const { data:perfil, error:errorPerfil } = await supabase
+                .from('perfiles')
+                .select().eq('id_auth',session.user.id).single();
+                if(!errorPerfil){
+                    const { data:negocio, error:errornegocio } = await supabase
+                    .from('negocios')
+                    .select().eq('id',perfil.id_negocio).single();
+
+                    if(!negocio.pagado){
+                        navigate('/pagos')
+                    }
+                }
+            }
+            else{
+                alert('Error: ',error)
+            }
+        }
+
+        comprobarSesion();
+    },[])
+
     useEffect(() => {
         const comprobarSesion = async () => {
             const { data: { session } } = await supabase.auth.getSession();

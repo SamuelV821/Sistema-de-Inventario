@@ -9,11 +9,17 @@ function UnirseNegocio(){
 
 
     const unirseNegocio = async () => {
-        console.log('id_auth:',id_auth)
+        //console.log('id_auth:',id_auth)
+        
         const { data, error:errorSelect } = await supabase
         .from('negocios')
         .select()
-        .eq('codigo', codigo) // El estado que captura lo que escribís
+        .eq('codigo', codigo).maybeSingle() // El estado que captura lo que escribís
+
+        if(!data){
+            alert('El negocio no existe');
+            return;
+        }
 
         if(!errorSelect){
             console.log('se encontro el negocio',data[0].id)
@@ -27,6 +33,7 @@ function UnirseNegocio(){
                 navigate('/home')
             }
         }
+
     }
 
 

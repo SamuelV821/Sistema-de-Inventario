@@ -43,6 +43,7 @@ export function Register(){
       }
     }
     else{
+      alert('Por favor ingrese un E-mail y contraseña validos');
       console.log('Error:',error)
 
     }

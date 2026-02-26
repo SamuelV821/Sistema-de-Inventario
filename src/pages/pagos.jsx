@@ -18,7 +18,7 @@ const Pagos = () => {
   // 2. LA FUNCIÓN "CARTERO": Envía los datos a tu servidor (Supabase)
   const onSubmit = async (formData) => {
     const { token, payer } = formData;
-    console.log("Intentando pagar. ID de negocio actual:", id);
+    //console.log("Intentando pagar. ID de negocio actual:", id);
 
       if (!id) {
         alert("Error: No se detectó tu ID de negocio. Por favor, recarga la página.");
@@ -48,13 +48,13 @@ const Pagos = () => {
         // Si el status no es 200-299, algo salió mal en la ruta o permisos
         console.error(`Error de red: ${response.status}`);
         const errorData = await response.json().catch(() => ({}));
-        console.log("Detalle del error:", errorData);
+        //console.log("Detalle del error:", errorData);
         alert(`Error del servidor (${response.status}). Revisa la consola.`);
         return;
       }
 
       const resultado = await response.json();
-      console.log("Respuesta de Mercado Pago:", resultado);
+      //console.log("Respuesta de Mercado Pago:", resultado);
 
       if (resultado.status === "authorized" || resultado.status === "active") {
         alert("¡ÉXITO TOTAL! Ya eres ClickVenta Pro.");
@@ -99,18 +99,18 @@ const Pagos = () => {
     const comprobarSesion = async () => {
                 const { data: { session } } = await supabase.auth.getSession();
                 if(session){
-                  console.log('sesion encontrada')
+                  //console.log('sesion encontrada')
                   const { data: idEncontrada, error:errorSelect } = await supabase
                   .from('perfiles')
                   .select('id_negocio').eq('id_auth',session.user.id).single();
                   if(!errorSelect){
-                    console.log('id encontrada:',idEncontrada.id_negocio)
-                    console.log(idEncontrada)
+                    //console.log('id encontrada:',idEncontrada.id_negocio)
+                    //console.log(idEncontrada)
                     setId(idEncontrada.id_negocio)
                   }
                 }
                 else{
-                  console.log('no se encontro una sesion')
+                  //console.log('no se encontro una sesion')
                 }
     }
     comprobarSesion();

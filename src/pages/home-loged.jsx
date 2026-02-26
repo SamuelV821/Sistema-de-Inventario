@@ -85,7 +85,7 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     const totalVenta = listaDeVenta.reduce((acc, el) => acc + el.precio_final, 0);
 
     if(listaDeVenta.length === 0){
-        //console.log('Agrega un producto')
+        alert('Agrega un producto')
         return;
     }
     
