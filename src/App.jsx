@@ -10,39 +10,22 @@ import { Inventario } from "./pages/inventario"
 import Precios from "./pages/precios"
 import Historial from "./pages/historial"
 import { NavbarMovil } from "./pages/menuDesplegable"
-import { BrowserRouter,Routes,Route,Link } from "react-router-dom"
+import { BrowserRouter,Routes,Route,Link, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "./supabaseClient"
 import Pagos from "./pages/pagos"
 import Configuracion from "./pages/configuracion"
 
-function App() {
-  const [logeado,setLogueado] = useState(false);
-  const [afiliado,setAfiliado] = useState(false);
-  const rutasSinNavbar = ['/pagos', '/login', '/registro','/afiliarse','/unirseNegocio','/crearNegocio'];
+function NavBar({logeado,dueno}){
+
+  const location = useLocation();
+  
+  const rutasSinNavbar = ['/', '/pagos', '/login', '/register', '/afiliarse', '/unirseNegocio', '/crearNegocio'];
   const ocultarNavbar = rutasSinNavbar.includes(location.pathname);
 
-  useEffect(() => {
-
-    supabase.auth.onAuthStateChange((event, session) => {
-      setLogueado(!!session); // !!session convierte el objeto a true/false
-    });
-
-    async function verificarNegocio(){
-      const { data: { session } } = await supabase.auth.getSession();
-      const { data:perfiles, error } = await supabase.from('perfiles').select().eq('id_auth',session.user.id);
-      if(perfiles[0].id_negocio === null){
-        setAfiliado(true);
-      }
-    }
-
-},[])
-  
-
   return (
-    <div className="bg-zinc-950 text-slate-100 min-h-screen flex flex-col md:flex-row p-4">
-     <BrowserRouter>
-     {(logeado && !ocultarNavbar) && 
+  <>
+  {(logeado && !ocultarNavbar && dueno) && (
      <nav className="bg-zinc-800/30 md:h-lvh md:sticky top-4 flex flex-row md:flex-col items-start p-4 gap-2 md:gap-6 rounded-2xl border-white/5 border-1">
       <div className='bg-zinc-950 rounded-2xl p-2'>
           <div className="flex items-center gap-1 tracking-tight">
@@ -59,7 +42,63 @@ function App() {
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/historial'}>Historial</Link>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/configuracion'}>Configuracion</Link>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/cerrarSesion'}>Cerrar Sesion</Link>
-     </nav> }
+     </nav> )}
+     {(logeado && !ocultarNavbar && (!dueno)) && (
+     <nav className="bg-zinc-800/30 md:h-lvh md:sticky top-4 flex flex-row md:flex-col items-start p-4 gap-2 md:gap-6 rounded-2xl border-white/5 border-1">
+      <div className='bg-zinc-950 rounded-2xl p-2'>
+          <div className="flex items-center gap-1 tracking-tight">
+              <span className="text-2xl font-black text-slate-100 italic">Click</span>
+              <span className="text-2xl font-black text-emerald-500 italic">Venta</span>
+              <div className="h-2 w-2 bg-emerald-500 boxsh rounded-full mt-3 shadow-[0_0_10px_#10b981] animate-pulse"></div>
+          </div>
+      </div>
+      <br />
+      <NavbarMovil/>
+      <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/home'}>Home</Link>
+      <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/precios'}>Precios</Link>
+      <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/configuracion'}>Configuracion</Link>
+      <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/cerrarSesion'}>Cerrar Sesion</Link>
+     </nav> )}
+     </>
+  )
+}
+
+
+function App() {
+  const [logeado,setLogueado] = useState(false);
+  const [dueno,setDueno] = useState(false);
+  
+  useEffect(()=>{
+        const comprobarSesion = async () => {
+            const { data: {session}, error } = await supabase.auth.getSession();
+            if (session){
+                const { data:perfil, error:errorPerfil } = await supabase
+                .from('perfiles')
+                .select().eq('id_auth',session.user.id).single();
+                if(!errorPerfil){
+                    setDueno(perfil.dueno)
+                }
+            }
+        }
+
+        comprobarSesion();
+    },[])
+
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setLogueado(!!session);
+    });
+    return () => authListener.subscription.unsubscribe();
+
+  }, []);
+  
+
+  return (
+    <div className="bg-zinc-950 text-slate-100 min-h-screen flex flex-col md:flex-row p-4">
+     <BrowserRouter>
+
+     <NavBar logeado={logeado} dueno={dueno}/>
+     
      <main className="flex-1 p-3 :p-6 md:col-span-8">
         <Routes>
           <Route path="/" element ={<Home/>}/>
@@ -75,7 +114,6 @@ function App() {
           <Route path="/historial" element ={<Historial/>}/>
           <Route path="/pagos" element ={<Pagos/>}/>
           <Route path="/configuracion" element ={<Configuracion/>}/>
-
         </Routes>
       </main>
      </BrowserRouter>

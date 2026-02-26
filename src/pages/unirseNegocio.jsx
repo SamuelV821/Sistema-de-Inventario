@@ -22,10 +22,10 @@ function UnirseNegocio(){
         }
 
         if(!errorSelect){
-            console.log('se encontro el negocio',data[0].id)
+            console.log('se encontro el negocio',data.id)
             const { error:errorUpdate } = await supabase
             .from('perfiles')
-            .update({ id_negocio: data[0].id })
+            .update({ id_negocio: data.id })
             .eq('id_auth', id_auth)
 
             if(!errorUpdate){

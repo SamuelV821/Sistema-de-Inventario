@@ -6,6 +6,11 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     const [productosEncontrados,setProductosEncontrados] = useState([]);
     const [listaDeVenta,setListaDeVenta] = useState([]);
     const [textoBusqueda, setTextoBusqueda] = useState('')
+    const [metodo,setMetodo] = useState('Efectivo');
+
+    function seleccionarMetodo(e){
+        setMetodo(e.target.value);
+    }
 
     
     function buscar(e){
@@ -95,7 +100,7 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
         .insert([{ 
             total: totalVenta,
             id_negocio: idNegocioActual,
-            metodo_pago:'Efectivo',
+            metodo_pago:metodo,
             id_usuario: idUser
         }])
         .select();
@@ -176,11 +181,11 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="flex flex-row gap-2 items-center">
                     <label className="text-white text-sm">Método de Pago</label>
-                        <select className="bg-zinc-800 w-fit text-white p-1 md:p-3 rounded-xl border border-white/10 outline-none focus:ring-2 ring-indigo-500">
-                            <option value="efectivo">Efectivo</option>
-                            <option value="transferencia">Transferencia</option>
-                            <option value="tarjeta">Tarjeta de Débito</option>
-                            <option value="tarjeta">Tarjeta de Credito</option>
+                        <select onChange={(e) => seleccionarMetodo(e)} className="bg-zinc-800 w-fit text-white p-1 md:p-3 rounded-xl border border-white/10 outline-none focus:ring-2 ring-indigo-500">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Tarjeta Debito">Tarjeta de Débito</option>
+                            <option value="Tarjeta Credito">Tarjeta de Credito</option>
                         </select>
                 </div>
                     <button className="bg-emerald-500/80 rounded-2xl p-2 md:p-4 text-1xl md:text-2xl border-slate-300/50 border-1 text-zinc-900 hover:text-zinc-800/80 hover:bg-emerald-500/50" onClick={() => finalizarVenta()}>Finalizar Venta</button>
