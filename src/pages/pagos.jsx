@@ -45,19 +45,20 @@ const Pagos = () => {
 
       // 3. DIAGNÓSTICO DE RESPUESTA
       if (!response.ok) {
-        // Si el status no es 200-299, algo salió mal en la ruta o permisos
-        console.error(`Error de red: ${response.status}`);
-        const errorData = await response.json().catch(() => ({}));
-        //console.log("Detalle del error:", errorData);
-        alert(`Error del servidor (${response.status}). Revisa la consola.`);
-        return;
+        // Leemos los detalles que configuramos en la Edge Function
+        const mensajeDeError = "No se pudo procesar el pago, revise los datos de su tarjeta";
+        console.error("Error de Mercado Pago:", resultado);
+        
+        // El alert ahora dirá "Saldo insuficiente" o lo que diga MP
+        alert(`⚠️ Atención: ${mensajeDeError}`);
+        return; 
       }
 
       const resultado = await response.json();
       //console.log("Respuesta de Mercado Pago:", resultado);
 
       if (resultado.status === "authorized" || resultado.status === "active") {
-        alert("¡ÉXITO TOTAL! Ya eres ClickVenta Pro.");
+        alert("¡Cobro exitoso! Ya eres ClickVenta Pro.");
         window.location.reload();
       } else {
         alert("Mercado Pago rechazó el pago. Verifica los datos de la tarjeta.");
@@ -66,7 +67,8 @@ const Pagos = () => {
 
     } catch (err) {
       console.error("Error crítico en el proceso:", err);
-      alert("No se pudo conectar con el servidor.");
+      alert("No se pudo realizar el pago, revise sus datos y vuelva a intentar.");
+      window.location.reload();
     }
   };
 
