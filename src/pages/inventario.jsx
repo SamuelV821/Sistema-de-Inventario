@@ -171,7 +171,7 @@ function Lista({productos , setProductos}){
         {productosEncontrados?.map((data) => (
             <div className="bg-zinc-800/50 rounded-2xl flex flex-col md:grid md:grid-cols-4 md:grid-rows-4 justify-center items-center p-4 md:p-5 gap-4 md:gap-5 m-6" key={data.id}>
 
-                <div className="flex flex-row gap-3 md:text-xl md:col-span-4 truncate"><span>Producto: </span>
+                <div className="flex flex-row gap-3 md:text-xl md:col-span-4 whitespace-normal break-words w-full"><span>Producto: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'producto') ? 
                 <input className="bg-zinc-950 w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
@@ -179,7 +179,7 @@ function Lista({productos , setProductos}){
                      return; setElementoEdicion({id:data.id,tipo:'producto'})}} >{data.producto}</span>
                 }</div>
 
-                <div className="flex flex-row gap-3 md:text-xl md:col-span-4 truncate"><span>Descripcion: </span>
+                <div className="flex flex-row gap-3 md:text-xl md:col-span-4 whitespace-normal break-words w-full"><span>Descripcion: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'descripcion') ? 
                 <input className="bg-zinc-950 w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
