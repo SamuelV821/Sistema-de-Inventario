@@ -95,9 +95,11 @@ function Precios(){
             <div className="grid grid-cols-1 md:grid-cols-4 p-8 gap-6">
                 
             {productosEncontrados?.map((data) => (
-                <div className="bg-slate-800/50 rounded-2xl p-6 font-black flex justify-center items-center " key={data.id}>
-                <span>{data.producto} ${data.precio_venta}</span>
-                <br />
+                <div className="bg-zinc-900/50 border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center gap-2 group hover:border-emerald-500/50 transition-all duration-300" key={data.id}>
+                    <span className="text-zinc-400 text-sm font-medium uppercase tracking-wider">{data.producto}</span>
+                    <span className="text-emerald-500 text-3xl font-black italic tracking-tighter">
+                        ${data.precio_venta.toLocaleString('es-AR')}
+                    </span>
                 </div>
             ))}
 

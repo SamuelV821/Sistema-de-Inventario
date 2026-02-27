@@ -201,6 +201,24 @@ function HomeLoged(){
     const [productos,setProductos] = useState([]);
     const [idNegocioActual, setIdNegocioActual] = useState('')
     const [idUser,setIdUser] = useState ('')
+
+    const [installPrompt, setInstallPrompt] = useState(null);
+
+    useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault(); // Evita que el navegador tire su cartel feo
+        setInstallPrompt(e); // Guardamos el evento para dispararlo nosotros
+    });
+    }, []);
+
+    const handleInstallClick = async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt(); // Mostramos el cartel
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === "accepted") {
+        setInstallPrompt(null);
+    }
+    };
     
     useEffect(()=>{
         const comprobarSesion = async () => {
@@ -308,6 +326,22 @@ function HomeLoged(){
 
     return(
         <div className="p-1 md:p-4">
+
+            {installPrompt && (
+                <div className="bg-emerald-500 p-4 flex justify-between items-center rounded-2xl mb-6 shadow-lg animate-pulse">
+                    <div className="flex flex-col">
+                    <span className="font-black text-zinc-900">¡Instalá ClickVenta!</span>
+                    <span className="text-xs text-zinc-900/80 font-medium">Accedé más rápido desde tu escritorio</span>
+                    </div>
+                    <button 
+                    onClick={handleInstallClick}
+                    className="bg-zinc-950 text-white px-4 py-2 rounded-xl font-bold text-sm"
+                    >
+                    INSTALAR
+                    </button>
+                </div>
+            )}
+
             <Vender productos={productos} setProductos={setProductos} idNegocioActual={idNegocioActual} idUser={idUser}/>
            
         </div>
