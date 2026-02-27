@@ -10,9 +10,8 @@ const Pagos = () => {
   const navigate = useNavigate();
   const [id,setId] = useState();
   const initialization = {
-    amount: 100, // Debe coincidir con el monto del Plan
-    // Agregamos esto para que el SDK sepa que es una tarjeta de prueba
-    type: 'recurring', 
+    amount: 25000, // Debe coincidir con el monto del Plan
+    // Agregamos esto para que el SDK sepa que es una tarjeta de prueba 
   };
 
   // 2. LA FUNCIÓN "CARTERO": Envía los datos a tu servidor (Supabase)
