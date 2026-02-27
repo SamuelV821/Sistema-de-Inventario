@@ -99,12 +99,23 @@ const Pagos = () => {
 
   return (
     <div className="min-h-screen bg-[#0b0e11] flex flex-col items-center justify-center md:p-4 text-white">
+      
       <div className="w-full max-w-[450px] bg-[#181a1f] p-2 md:p-8 rounded-2xl border border-[#2b2f36] shadow-2xl">
         
         <div className="text-center mb-8 ">
           <img src="/img/MP.png" alt="Mercado Pago" className="h-5 hover:grayscale-0 transition-all m-2 mx-auto"/>
           <h1 className="text-2xl font-bold mb-1">Finalizar Suscripción</h1>
           <p className="text-zinc-400 text-sm italic">Plan Mensual ClickVenta</p>
+        </div>
+
+        <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-3 mb-6 flex items-start gap-3">
+            <span className="text-amber-500 text-lg">⚠️</span>
+            <div className="flex flex-col">
+                <span className="text-amber-500 font-bold text-sm">Información sobre tarjetas</span>
+                <span className="text-zinc-400 text-xs mt-1 leading-relaxed">
+                    Por políticas de seguridad de Mercado Pago para débitos automáticos, <strong>solo se aceptan tarjetas Visa, Mastercard</strong>. Las tarjetas locales (como Naranja Clásica) podrían ser rechazadas.
+                </span>
+            </div>
         </div>
 
         <div className="bg-zinc-950/50 rounded-xl p-4 mb-6 border border-zinc-800">
