@@ -58,6 +58,7 @@ function NavBar({logeado,dueno}){
       <NavbarMovilEmpleado/>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/home'}>Home</Link>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/precios'}>Precios</Link>
+      <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/configuracion'}>Configuracion</Link>
       <Link className="bg-zinc-950 hover:bg-indigo-950/70 border-white/5 hidden border-2 hover:text-indigo-200 rounded-2xl w-40 p-4 md:flex items-center justify-center" to={'/cerrarSesion'}>Cerrar Sesion</Link>
      </nav> )}
      </>
@@ -67,47 +68,44 @@ function NavBar({logeado,dueno}){
 
 function App() {
   const [logeado,setLogueado] = useState(false);
-  const [dueno,setDueno] = useState(false);
+  const [dueno,setDueno] = useState(true);
   
   useEffect(() => {
-    // Definimos la función para buscar el perfil
+    // 1. La función de búsqueda (afuera para que sea limpia)
     const obtenerDatosPerfil = async (userId) => {
-        const { data: perfil, error } = await supabase
-            .from('perfiles')
-            .select('dueno')
-            .eq('id_auth', userId)
-            .single();
+        try {
+            const { data: perfil, error } = await supabase
+                .from('perfiles')
+                .select('dueno')
+                .eq('id_auth', userId)
+                .single();
 
-        if (!error && perfil) {
-            setDueno(perfil.dueno);
+            if (!error && perfil) {
+                setDueno(perfil.dueno);
+            }
+        } catch (err) {
+            console.error("Error en perfil:", err);
         }
     };
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-        const estaLogueado = !!session;
-        setLogueado(estaLogueado);
-
-        if (estaLogueado) {
-            // Si se acaba de loguear o ya estaba logueado, buscamos el perfil
-            await obtenerDatosPerfil(session.user.id);
+    // 2. El ÚNICO encargado de la sesión
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+        if (session) {
+            setLogueado(true);
+            obtenerDatosPerfil(session.user.id); // Llamada directa sin bloquear el listener
         } else {
-            // Si cerró sesión, reseteamos el estado de dueño
+            setLogueado(false);
             setDueno(false);
         }
     });
 
-    // También verificamos la sesión inicial por si acaso
-    const chequearInicial = async () => {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-            setLogueado(true);
-            await obtenerDatosPerfil(session.user.id);
+    // 3. Limpieza
+    return () => {
+        if (authListener?.subscription) {
+            authListener.subscription.unsubscribe();
         }
     };
-    chequearInicial();
-
-    return () => authListener.subscription.unsubscribe();
-}, []);
+}, []); // Array vacío, se monta una sola vez.
   
 
   return (
