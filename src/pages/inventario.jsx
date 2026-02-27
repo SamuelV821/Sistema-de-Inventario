@@ -169,11 +169,11 @@ function Lista({productos , setProductos}){
         <>
             <div className="bg-zinc-950 rounded-2xl flex flex-row p-4 gap-4 justify-center items-center"><input type="text" className="bg-zinc-800/50 border-1 border-white/50 w-full p-1 pl-4 pr-4" onChange={(e) => buscar(e)} /><button className="bg-zinc-800/50 hover:bg-emerald-500/50 border-1 border-white/50 rounded-2xl p-1 pl-4 pr-4">Buscar</button></div>
         {productosEncontrados?.map((data) => (
-            <div className="bg-zinc-800/50 rounded-2xl flex flex-col md:grid md:grid-cols-4 md:grid-rows-3 justify-center items-center p-4 md:p-8 gap-4 md:gap-8 m-8" key={data.id}>
+            <div className="bg-zinc-800/50 rounded-2xl flex flex-col md:grid md:grid-cols-4 md:grid-rows-4 justify-center items-center p-4 md:p-5 gap-4 md:gap-5 m-6" key={data.id}>
 
                 <div className="flex flex-row gap-3 md:text-xl md:col-span-4 truncate"><span>Producto: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'producto') ? 
-                <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
+                <input className="bg-zinc-950 w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'producto'})}} >{data.producto}</span>
@@ -181,37 +181,37 @@ function Lista({productos , setProductos}){
 
                 <div className="flex flex-row gap-3 md:text-xl md:col-span-4 truncate"><span>Descripcion: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'descripcion') ? 
-                <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
+                <input className="bg-zinc-950 w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'descripcion'})}} >{data.descripcion}</span>
                 }</div>
 
-                <div className="flex flex-row gap-3 md:text-xl"><span>Stock: </span>
+                <div className="flex flex-row gap-3 md:text-xl md:col-span-4"><span>Stock: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'cantidad') ? 
-                <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()} else if (e.key === '-' || e.key === '.' || e.key === ',') {e.preventDefault();} }} type="number" autoFocus name="cantidad" defaultValue={data.cantidad} onBlur={(e) => editarProducto(e,data.id)}/>
+                <input className="w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()} else if (e.key === '-' || e.key === '.' || e.key === ',') {e.preventDefault();} }} type="number" autoFocus name="cantidad" defaultValue={data.cantidad} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'cantidad'})}} >{data.cantidad}</span>
                 }</div>
 
-                <div className="flex flex-row gap-1 md:text-xl"><span>Precio Costo: $</span>
+                <div className="flex flex-row gap-1 md:text-xl md:col-span-2"><span>Precio Costo: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_costo') ? 
-                <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()} else if (e.key === '-' || e.key === '.' || e.key === ',') {e.preventDefault();} }} type="number" autoFocus name="precio_costo" defaultValue={data.precio_costo} onBlur={(e) => editarProducto(e,data.id)}/>
+                <input className="w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()} else if (e.key === '-' || e.key === '.' || e.key === ',') {e.preventDefault();} }} type="number" autoFocus name="precio_costo" defaultValue={data.precio_costo} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'precio_costo'})}} >{data.precio_costo}</span>
                 }</div>
 
-                <div className="flex flex-row gap-1 md:text-xl"><span>Precio Venta: $</span>
+                <div className="flex flex-row gap-1 md:text-xl md:col-span-2"><span>Precio Venta: $</span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'precio_venta') ? 
-                <input className="bg-slate-400" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()} else if (e.key === '-' || e.key === '.' || e.key === ',') {e.preventDefault();} }} type="number" autoFocus name="precio_venta" defaultValue={data.precio_venta} onBlur={(e) => editarProducto(e,data.id)}/>
+                <input className="w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()} else if (e.key === '-' || e.key === '.' || e.key === ',') {e.preventDefault();} }} type="number" autoFocus name="precio_venta" defaultValue={data.precio_venta} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'precio_venta'})}} >{data.precio_venta}</span>
                 }</div>
 
-                <div className="flex justify-end"><button className="text-2xl md:text-4xl" onClick={() => borrarProducto(data.id)}>⛔</button></div>
+                <div className="flex justify-end md:col-span-4"><button className="text-2xl md:text-4xl" onClick={() => borrarProducto(data.id)}>⛔</button></div>
                 
             </div>
         ))}
