@@ -99,7 +99,14 @@ function Historial() {
         return fechaFacturaLocal === date;
     });
 
-    const totalDineroDia = facturasDelDia.reduce((acc, curr) => acc + curr.total, 0);
+    // Ejemplo de cómo deberías estar calculando esto
+const totalDineroDia = facturasDelDia
+    .filter(v => v.metodo_pago !== 'Libreta/Fiado')
+    .reduce((acc, v) => acc + v.total, 0);
+
+const totalLibretaDia = facturasDelDia
+    .filter(v => v.metodo_pago === 'Libreta/Fiado')
+    .reduce((acc, v) => acc + v.total, 0);
     const cantidadVentasDia = facturasDelDia.length;
 
     return (
@@ -111,19 +118,28 @@ function Historial() {
             </div>
 
             {/* Resumen del Día */}
-            <div className="flex flex-row gap-8">
+            <div className="flex flex-col md:flex-row gap-8">
                 <div className="flex flex-col items-end">
                     <span className="text-zinc-400 text-xs uppercase tracking-widest">Ventas del Dia</span>
                     <span className="text-white text-3xl font-black">{cantidadVentasDia}</span>
                 </div>
-                <div className="flex flex-col items-end border-l border-white/10 pl-8">
+
+                <div className="flex flex-col items-end border-t p-2 md:border-l border-white/10 pl-8">
                     <span className="text-emerald-500/80 text-xs uppercase tracking-widest">Total recaudado</span>
                     <span className="text-emerald-500 text-3xl font-black italic">
                         $ {totalDineroDia.toLocaleString('es-AR')}
                     </span>
                 </div>
+
+                {/* BLOQUE AMARILLO: LIBRETA/FIADO */}
+                <div className="flex flex-col items-end border-t p-2 md:border-l border-white/10 pl-8">
+                    <span className="text-amber-400/80 text-xs uppercase tracking-widest">En Libreta (Fiado)</span>
+                    <span className="text-amber-400 text-3xl font-black italic">
+                        $ {totalLibretaDia.toLocaleString('es-AR')}
+                    </span>
+                </div>
             </div>
-            
+                        
             {facturas.filter(f => {
                 const fechaFacturaUTC = new Date(f.created_at);
                 // Extraemos solo la parte YYYY-MM-DD en formato local

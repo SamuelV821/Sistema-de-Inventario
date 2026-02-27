@@ -41,14 +41,32 @@ export function Legal() {
                             </section>
 
                             <section>
-                                <h2 className="text-xl font-bold text-slate-100 mb-3">4. Jurisdicción y Ley Aplicable</h2>
+                                <h2 className="text-xl font-bold text-slate-100 mb-3">4. Política de No Reembolso</h2>
+                                <p className="mb-2">
+                                    Dado que el Servicio consiste en el acceso inmediato a una plataforma digital de gestión, <strong>ClickVenta no realiza devoluciones ni reembolsos de dinero</strong> bajo ninguna circunstancia una vez abonada la suscripción mensual.
+                                </p>
+                                <ul className="list-disc ml-6 space-y-2 text-sm italic border-l-2 border-white/10 pl-4">
+                                    <li>
+                                        El Usuario puede cancelar su suscripción en cualquier momento para evitar futuros cobros, pero mantendrá el acceso hasta finalizar el periodo ya pagado.
+                                    </li>
+                                    <li>
+                                        No se realizarán reembolsos proporcionales por días no utilizados dentro de un mes ya facturado.
+                                    </li>
+                                    <li>
+                                        Conforme al Art. 1116 del Código Civil y Comercial de la Nación, el derecho de revocación no es aplicable a suministros de grabaciones sonoras, de video o de <strong>software informático</strong> que hayan sido instalados o utilizados por el consumidor.
+                                    </li>
+                                </ul>
+                            </section>
+
+                            <section>
+                                <h2 className="text-xl font-bold text-slate-100 mb-3">5. Jurisdicción y Ley Aplicable</h2>
                                 <p>
                                     Para cualquier divergencia que pudiera surgir en la interpretación o ejecución del presente contrato, las partes se someten a la jurisdicción de los Tribunales Ordinarios de la ciudad de Tartagal, Provincia de Salta, renunciando a cualquier otro fuero o jurisdicción.
                                 </p>
                             </section>
                             
                             <section>
-                                <h2 className="text-xl font-bold text-slate-100 mb-3">5. Disponibilidad del Servicio (SLA)</h2>
+                                <h2 className="text-xl font-bold text-slate-100 mb-3">6. Disponibilidad del Servicio (SLA)</h2>
                                 <p className="mb-3">
                                     ClickVenta se esfuerza por mantener la plataforma operativa las 24 horas del día. Sin embargo, el Usuario reconoce y acepta que:
                                 </p>

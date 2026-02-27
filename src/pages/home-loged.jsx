@@ -186,6 +186,7 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
                             <option value="Transferencia">Transferencia</option>
                             <option value="Tarjeta Debito">Tarjeta de Débito</option>
                             <option value="Tarjeta Credito">Tarjeta de Credito</option>
+                            <option value="Libreta/Fiado">Libreta/Fiado</option>
                         </select>
                 </div>
                     <button className="bg-emerald-500/80 rounded-2xl p-2 md:p-4 text-1xl md:text-2xl border-slate-300/50 border-1 text-zinc-900 hover:text-zinc-800/80 hover:bg-emerald-500/50" onClick={() => finalizarVenta()}>Finalizar Venta</button>
