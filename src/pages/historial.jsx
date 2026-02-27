@@ -99,7 +99,14 @@ function Historial() {
             <span className="font-black italic hidden md:block">Filtrar por fecha</span>
                 <input className="bg-white/80 text-xl text-black p-2 rounded-2xl" type="date" value={date} onChange={(e) => buscarFecha(e)}/>
             </div>
-            {facturas.filter(f => f.created_at.substring(0,10) === date).map((fact) => (
+            {facturas.filter(f => {
+                const fechaFacturaUTC = new Date(f.created_at);
+                // Extraemos solo la parte YYYY-MM-DD en formato local
+                const fechaFacturaLocal = fechaFacturaUTC.toLocaleDateString('en-CA'); // en-CA devuelve YYYY-MM-DD
+                
+                return fechaFacturaLocal === date;
+
+            }).map((fact) => (
                 <div className="bg-zinc-800/50 rounded-2xl p-6 flex flex-col gap-4 justify-center w-full border-white/5 border-1">
                     <div className="bg-indigo-500/50 rounded-2xl p-4">
                         <div className="flex flex-col md:flex-row justify-between items-center">
