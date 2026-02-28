@@ -16,7 +16,7 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     function buscar(e){
         setTextoBusqueda(e.target.value);
         setProductosEncontrados(productos.filter(p =>
-            p.producto.toLowerCase().includes(e.target.value.toLowerCase()) && e.target.value !== ""
+            (p.producto.toLowerCase().includes(e.target.value.toLowerCase()) || p.descripcion.toLowerCase().includes(e.target.value.toLowerCase()) ) && e.target.value !== ""
         ));
         if(e.target.value === ''){
             setProductosEncontrados([]);
