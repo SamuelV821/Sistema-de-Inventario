@@ -15,13 +15,18 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     
     function buscar(e){
         setTextoBusqueda(e.target.value);
+    }
+
+    useEffect(()=>{
+
         setProductosEncontrados(productos.filter(p =>
-            (p.producto.toLowerCase().includes(e.target.value.toLowerCase()) || p.descripcion.toLowerCase().includes(e.target.value.toLowerCase()) ) && e.target.value !== ""
+            (p.producto.toLowerCase().includes(textoBusqueda.toLowerCase()) || p.descripcion.toLowerCase().includes(textoBusqueda.toLowerCase()) ) && textoBusqueda !== ""
         ));
-        if(e.target.value === ''){
+        if(textoBusqueda === ''){
             setProductosEncontrados([]);
         }
-    }
+
+    },[productos,textoBusqueda])
 
     function agregarProducto(index){
         const p = productosEncontrados[index];

@@ -113,7 +113,7 @@ const Pagos = () => {
             <div className="flex flex-col">
                 <span className="text-amber-500 font-bold text-sm">Información sobre tarjetas</span>
                 <span className="text-zinc-400 text-xs mt-1 leading-relaxed">
-                    Por políticas de seguridad de Mercado Pago para débitos automáticos, <strong>solo se aceptan tarjetas Visa, Mastercard</strong>. Las tarjetas locales (como Naranja Clásica) podrían ser rechazadas.
+                    Por politicas de seguridad de Mercado Pago para débitos automáticos, <strong>solo se aceptan tarjetas bancarizadas o Uala (Visa o Mastercard)</strong>. Las tarjetas locales como Naranja Clásica o la propia Mercado Pago serán rechazadas por el sistema.
                 </span>
             </div>
         </div>

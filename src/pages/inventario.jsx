@@ -173,7 +173,7 @@ function Lista({productos , setProductos}){
 
                 <div className="flex flex-row gap-3 md:text-xl md:col-span-4 whitespace-normal break-words w-full"><span>Producto: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'producto') ? 
-                <input className="bg-zinc-950 w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
+                <input className="w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="producto" defaultValue={data.producto} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
                 <span onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'producto'})}} >{data.producto}</span>
@@ -181,9 +181,9 @@ function Lista({productos , setProductos}){
 
                 <div className="flex flex-row gap-3 md:text-xl md:col-span-4 whitespace-normal break-words w-full"><span>Descripcion: </span>
                 {(elementoEdicion.id === data.id) && (elementoEdicion.tipo === 'descripcion') ? 
-                <input className="bg-zinc-950 w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
+                <input className="w-20 h-fit" onKeyDown = {(e) => {if(e.key === 'Enter'){e.target.blur()}}} type="text" autoFocus name="descripcion" defaultValue={data.descripcion} onBlur={(e) => editarProducto(e,data.id)}/>
                 :
-                <span onClick={() =>{if (elementoEdicion.id !== null)
+                <span className="min-w-20" onClick={() =>{if (elementoEdicion.id !== null)
                      return; setElementoEdicion({id:data.id,tipo:'descripcion'})}} >{data.descripcion}</span>
                 }</div>
 
