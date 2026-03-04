@@ -7,6 +7,28 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     const [listaDeVenta,setListaDeVenta] = useState([]);
     const [textoBusqueda, setTextoBusqueda] = useState('')
     const [metodo,setMetodo] = useState('Efectivo');
+    const [nombreMisc, setNombreMisc] = useState('');
+    const [precioMisc, setPrecioMisc] = useState('');
+    const [mostrarMisc, setMostrarMisc] = useState(false);
+
+    function agregarMiscelaneo() {
+        if (!nombreMisc || !precioMisc || parseFloat(precioMisc) <= 0) {
+            alert("Poné un nombre y un precio válido");
+            return;
+        }
+
+        setListaDeVenta([...listaDeVenta, {
+            id: `misc-${Date.now()}`, // ID único temporal
+            producto: nombreMisc.toUpperCase(),
+            cantidad: 1,
+            precio: parseFloat(precioMisc),
+            precio_final: parseFloat(precioMisc),
+        }]);
+
+        setNombreMisc('');
+        setPrecioMisc('');
+        setMostrarMisc(false);
+    }
 
     function seleccionarMetodo(e){
         setMetodo(e.target.value);
@@ -111,15 +133,20 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
         .select();
 
     if (!errorVenta) {
+        
         // 2. Preparamos los renglones de la factura para insertarlos todos juntos
-        const detalles = listaDeVenta.map(item => ({
+        const detalles = listaDeVenta.map(item => {
+            const esMisc = typeof item.id === 'string' && item.id.startsWith('misc-');
+
+            return {
             id_factura: venta[0].id,
-            id_producto: item.id,
+            id_producto: esMisc ? null : item.id,
             cantidad: item.cantidad,
             precio: item.precio,
             precio_final: item.precio_final,
             producto: item.producto
-        }));
+            }
+        });
 
         await supabase.from('ventas').insert(detalles);
         
@@ -127,10 +154,12 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
         alert("Factura generada con éxito");
         setListaDeVenta([]);
         // ... después de insertar los detalles ...
-
+        const productosConStockReal = listaDeVenta.filter(item => 
+            Number.isInteger(item.id) || !item.id.toString().startsWith('misc-')
+            );
         // Llamamos a nuestra función personalizada de Supabase
         const { error: errorStock } = await supabase.rpc('descontar_stock_masivo', {
-            productos_venda: listaDeVenta // Le mandamos la lista entera de un golpe
+            productos_venda: productosConStockReal // Le mandamos la lista entera de un golpe
         });
 
         if (errorStock) {
@@ -153,6 +182,11 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
     return(
         <div className="bg-zinc-800/50 flex flex-col rounded-2xl p-2 md:p-6 gap-8 md:gap-10">
             <div className="relative flex flex-col gap-4">
+                
+                <div className="flex items-center gap-2 px-2 text-zinc-400">
+                <span className="text-xs font-medium uppercase tracking-wider">Buscar artículos en stock</span>
+                </div>
+
                 <div className="bg-zinc-950 rounded-2xl flex flex-row p-4 gap-4 justify-center items-center"><input type="text" className="bg-zinc-800/50 border-1 border-white/50 w-full p-1 pl-4 pr-4" onChange={(e) => buscar(e)} value={textoBusqueda}></input><button className="bg-zinc-800/50 hover:bg-emerald-500/50 border-1 border-white/50 rounded-2xl p-1 pl-4 pr-4">Buscar</button></div>
                 {productosEncontrados.length > 0 && 
                     <div className="bg-indigo-950/97 p-6 rounded-2xl mx-h-80 max-h-130 md overflow-y-scroll overflow-x-hidden absolute top-full mt-3 w-full flex flex-col gap-4 z-50">
@@ -167,6 +201,45 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
                     </div>
                 }
             </div>
+            {!mostrarMisc ? (
+                <button 
+                    onClick={() => setMostrarMisc(true)}
+                    className="flex items-center justify-center gap-2 py-2 px-4 rounded-xl border border-dashed border-white/20 text-zinc-400 hover:text-white hover:border-white/40 transition-all text-sm">
+                    <span>➕</span> Agregar artículo sin código (Pan, varios...)
+                </button>
+                ):(
+                <div className="bg-zinc-900/40 p-4 rounded-2xl border border-white/5 flex flex-col gap-3">
+                    <span className="text-xs text-zinc-500 uppercase px-1">Carga rápida (Artículos sin código)</span>
+                    <div className="flex flex-col md:flex-row gap-3">
+                        <input 
+                            type="text" 
+                            placeholder="Ej: Pan, Papa, Caramelo..." 
+                            className="bg-zinc-800 border border-white/10 rounded-xl p-2 flex-1 outline-none focus:border-emerald-500/50"
+                            value={nombreMisc}
+                            onChange={(e) => setNombreMisc(e.target.value)}
+                        />
+                        <input 
+                            type="number" 
+                            placeholder="$ Precio" 
+                            className="bg-zinc-800 border border-white/10 rounded-xl p-2 w-full md:w-32 outline-none focus:border-emerald-500/50"
+                            value={precioMisc}
+                            onChange={(e) => setPrecioMisc(e.target.value)}
+                        />
+                        <button 
+                            onClick={agregarMiscelaneo}
+                            className="bg-zinc-100 text-zinc-900 font-bold rounded-xl p-2 px-6 hover:bg-white transition-colors"
+                        >
+                            + Agregar
+                        </button>
+                        <button 
+                            onClick={() => setMostrarMisc(false)}
+                            className="bg-zinc-100 text-zinc-900 font-bold rounded-xl p-2 px-6 hover:bg-white transition-colors"
+                        >
+                            Cancelar
+                        </button>
+                    </div>
+                </div>)
+            }
             
             <div className="bg-zinc-950 min-h-20 flex h-60 md:h-120 overflow-y-scroll overflow-x-hidden flex-col rounded-2xl p-6 gap-6">
                 {listaDeVenta.map((data,index)=>(

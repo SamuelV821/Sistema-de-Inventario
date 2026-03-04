@@ -148,7 +148,7 @@ const totalLibretaDia = facturasDelDia
                 return fechaFacturaLocal === date;
 
             }).map((fact) => (
-                <div className="bg-zinc-800/50 rounded-2xl p-1 md:p-6 flex flex-col gap-4 justify-center w-full border-white/5 border-1">
+                <div key={fact.id} className="bg-zinc-800/50 rounded-2xl p-1 md:p-6 flex flex-col gap-4 justify-center w-full border-white/5 border-1">
                     <div className="bg-indigo-500/50 rounded-2xl p-4">
                         <div className="flex flex-col md:flex-row justify-between items-center">
                             <h1>Venta registrada</h1>
