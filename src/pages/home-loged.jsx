@@ -82,10 +82,12 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
         const cant = (parseFloat(e.target.value));
         const productoOriginal = productos.find(p => p.id === listaDeVenta[index].id);
         const stockDisponible = productoOriginal?.cantidad || 0;
+        const esMisc = listaDeVenta[index].id.startsWith('misc-') ;
+        
 
         if(!isNaN(cant)){
 
-            if(cant > stockDisponible){
+            if(cant > stockDisponible && !esMisc){
                 alert('Stock insuficiente');
                 e.target.value = listaDeVenta[index].cantidad;
                 return;
@@ -150,10 +152,8 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
 
         await supabase.from('ventas').insert(detalles);
         
-        // 3. ¡Misión cumplida! Limpiamos todo
         alert("Factura generada con éxito");
         setListaDeVenta([]);
-        // ... después de insertar los detalles ...
         const productosConStockReal = listaDeVenta.filter(item => 
             Number.isInteger(item.id) || !item.id.toString().startsWith('misc-')
             );
@@ -267,7 +267,12 @@ function Vender({productos,setProductos,idNegocioActual,idUser}){
                             <option value="Libreta/Fiado">Libreta/Fiado</option>
                         </select>
                 </div>
-                    <button className="bg-emerald-500/80 rounded-2xl p-2 md:p-4 text-1xl md:text-2xl border-slate-300/50 border-1 text-zinc-900 hover:text-zinc-800/80 hover:bg-emerald-500/50" onClick={() => finalizarVenta()}>Finalizar Venta</button>
+                
+                <div className="text-3xl md:text-4xl font-black text-emerald-400 bg-zinc-950 px-6 py-3 rounded-2xl border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)] w-full md:w-auto text-center">
+                    Total: ${listaDeVenta.reduce((acc, el) => acc + el.precio_final, 0).toLocaleString('es-AR')}
+                </div>
+
+                <button className="bg-emerald-500/80 rounded-2xl p-2 md:p-4 text-1xl md:text-2xl border-slate-300/50 border-1 text-zinc-900 hover:text-zinc-800/80 hover:bg-emerald-500/50" onClick={() => finalizarVenta()}>Finalizar Venta</button>
             </div>
         </div>
     )
